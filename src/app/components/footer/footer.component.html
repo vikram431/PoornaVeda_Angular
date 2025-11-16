@@ -1,0 +1,61 @@
+<footer class="footer">
+  <div class="container">
+    <div class="grid">
+      
+      <!-- Brand -->
+      <div class="brand">
+        <img [src]="logoIcon" alt="PoornaVeda" class="logo" />
+        <p class="desc">
+          Celebrating India's timeless wisdom through authentic, handcrafted products 
+          that bring wholeness to modern life.
+        </p>
+        <div class="social">
+          <a *ngFor="let link of socialLinks" [href]="link.url" class="social-icon">
+            <i [ngClass]="{
+              'fab fa-facebook-f': link.icon === 'facebook',
+              'fab fa-instagram': link.icon === 'instagram',
+              'fab fa-twitter': link.icon === 'twitter'
+            }"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Explore -->
+      <div>
+        <h3 class="heading">Explore</h3>
+        <ul class="link-list">
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Our Products</a></li>
+          <li><a href="#">Artisan Stories</a></li>
+          <li><a href="#">Blog</a></li>
+        </ul>
+      </div>
+
+      <!-- Customer Care -->
+      <div>
+        <h3 class="heading">Customer Care</h3>
+        <ul class="link-list">
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Shipping Info</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <h3 class="heading">Connect</h3>
+        <ul class="contact-list">
+          <li><i class="fas fa-envelope"></i> hellopoornaveda.com</li>
+          <li><i class="fas fa-phone"></i> +91 98765 43210</li>
+          <li><i class="fas fa-map-marker-alt"></i> Mumbai, Maharashtra, India</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="bottom-text">
+      <p>© 2024 PoornaVeda. Celebrating India's Complete Wisdom. All rights reserved.</p>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,31 @@
+.announcement-bar {
+  background: linear-gradient(90deg, #ff9933, #6b2e2e);
+  color: #ffffff;
+  padding: 8px 16px;
+  position: relative;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.announcement-text {
+  width: 100%;
+}
+
+.close-btn {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: white;
+  opacity: 0.9;
+  transition: opacity 0.2s ease;
+}
+
+.close-btn:hover {
+  opacity: 0.6;
+}

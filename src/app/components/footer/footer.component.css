@@ -1,0 +1,116 @@
+.footer {
+  background-color: #6F2F2F; /* Forest Green (accent) */
+  color: #f3e5ab; /* Sandalwood Beige (accent-foreground) */
+  padding: 4rem 0;
+  font-family: 'Inter', sans-serif;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 3rem;
+  margin-bottom: 3rem;
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.logo {
+  height: 64px;
+  width: 64px;
+}
+
+.desc {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  opacity: 0.9;
+}
+
+.social {
+  display: flex;
+  gap: 1rem;
+}
+
+.social-icon {
+  color: #f3e5ab;
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+}
+
+.social-icon:hover {
+  color: #ff9933; /* saffron primary */
+}
+
+.heading {
+  font-family: 'Merriweather', serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.link-list,
+.contact-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.link-list li,
+.contact-list li {
+  margin-bottom: 0.75rem;
+}
+
+.link-list a {
+  text-decoration: none;
+  color: #f3e5ab;
+  font-size: 0.95rem;
+  transition: color 0.3s ease;
+}
+
+.link-list a:hover {
+  color: #ff9933;
+}
+
+.contact-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.contact-list i {
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
+}
+
+.bottom-text {
+  border-top: 1px solid rgba(243, 229, 171, 0.3);
+  text-align: center;
+  font-size: 0.85rem;
+  opacity: 0.8;
+  padding-top: 2rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .footer {
+    text-align: center;
+  }
+
+  .social {
+    justify-content: center;
+  }
+
+  .contact-list li {
+    justify-content: center;
+  }
+}

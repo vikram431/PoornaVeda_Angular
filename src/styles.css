@@ -1,1 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
+/* Reset default browser padding/margin */
+html, body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+
+button {
+  /* width: 100%; */
+  padding: 0.75rem;
+  font-size: 1.1rem;
+  border-radius: 6px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  background: linear-gradient(90deg, #FF9933, #3B6B4B);
+}

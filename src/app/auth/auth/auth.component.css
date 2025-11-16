@@ -1,0 +1,152 @@
+/* -------------------------- */
+/* Layout Wrapper (Centering) */
+/* -------------------------- */
+
+.auth-wrapper {
+  min-height: 100vh;                 /* min-h-screen */
+  display: flex;                     /* flex */
+  align-items: center;               /* items-center */
+  justify-content: center;           /* justify-center */
+  padding: 1rem;                     /* p-4 */
+  background: linear-gradient(180deg,
+    #fbf6ea,
+    #efddb3);
+  background-size: cover;
+}
+
+/* -------------------------- */
+/* Card Container             */
+/* -------------------------- */
+
+.card {
+  width: 100%;                       /* w-full */
+  max-width: 28rem;                  /* max-w-md */
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  padding: 2rem;
+}
+
+/* -------------------------- */
+/* Header                     */
+/* -------------------------- */
+
+.card-header {
+  text-align: center;                /* text-center */
+}
+
+.card-header > * + * {
+  margin-top: 0.5rem;                /* space-y-2 */
+}
+
+/* Logo */
+.h-16 {
+  height: 4rem;                      /* h-16 */
+}
+
+.mx-auto {
+  margin-left: auto;                 /* mx-auto */
+  margin-right: auto;
+}
+
+.card-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.card-description {
+  font-size: 0.875rem;
+  color: #666;
+}
+
+/* -------------------------- */
+/* Form Content               */
+/* -------------------------- */
+
+.card-content {
+  margin-top: 1.5rem;
+}
+
+.card-content > * + * {
+  margin-top: 1rem;                  /* space-y-4 */
+}
+
+/* Input fields */
+.input {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.input:focus {
+  border-color: #3B6B4B;
+  outline: none;
+}
+
+
+
+.btn {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1.1rem;
+  border-radius: 6px;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+.gradient-sacred {
+  background: linear-gradient(90deg, #FF9933, #3B6B4B);
+}
+
+.gradient-sacred:hover {
+  opacity: 0.95;
+}
+
+.text-primary {
+  color: #FF9933;
+  background: transparent;
+  font-size: 0.9rem;
+}
+
+.text-primary:hover {
+  text-decoration: underline;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.mt-4 {
+  margin-top: 1rem; 
+}
+
+.text-sm {
+    font-size: .875rem;
+    line-height: 1.25rem;
+}
+
+button,
+select {
+  text-transform: none;
+}
+
+
+/* Highlight invalid input */
+.input-error {
+  border-color: #dc2626; /* red-600 */
+  background-color: #fee2e2; /* light red */
+}
+
+/* Error text styling */
+.error-text {
+  color: #dc2626;
+  font-size: 0.875rem;
+  margin-top: 4px;
+}
+
+.btn[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

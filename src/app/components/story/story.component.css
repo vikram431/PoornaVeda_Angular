@@ -1,0 +1,89 @@
+.story-section {
+  padding: 6rem 0;
+  background: linear-gradient(to bottom, #f7f3e9, #f0ead6);
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.content-wrapper {
+  text-align: center;
+}
+
+.header {
+  margin-bottom: 3rem;
+}
+
+.logo-icon {
+  height: 96px;
+  width: 96px;
+  margin: 0 auto 2rem;
+  animation: pulse 2s infinite;
+}
+
+.title {
+  font-family: 'Merriweather', serif;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #1a1a1a;
+}
+
+.highlight-primary {
+  color: #d97706; /* saffron orange */
+}
+
+.highlight-accent {
+  color: #3b6b4b; /* forest green */
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.text-content {
+  color: #333;
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+.intro {
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-bottom: 2rem;
+}
+
+.card {
+  background: #fff;
+  border-radius: 1.5rem;
+  border: 1px solid #e5e5e5;
+  padding: 2rem;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  text-align: left;
+  margin-bottom: 2rem;
+}
+
+.footer-text {
+  padding-top: 2rem;
+}
+
+.footer-quote {
+  font-size: 1.75rem;
+  font-family: 'Merriweather', serif;
+  font-weight: bold;
+  color: #6b2e2e; /* maroon brown */
+}
+
+/* Simple animation similar to Tailwind's animate-pulse */
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+}

@@ -1,0 +1,34 @@
+<section class="products-section">
+  <div class="container">
+    <div class="header">
+      <h2>Our Sacred <span class="text-primary">Offerings</span></h2>
+      <p>Discover products that bring the essence of Indian wisdom to your home</p>
+    </div>
+
+    <div class="products-grid">
+      <div class="product-card" *ngFor="let product of products">
+        <div class="image-wrapper">
+          <img [src]="product.image" [alt]="product.name" />
+        </div>
+
+        <div class="product-content">
+          <p class="category">{{ product.category }}</p>
+          <h3>{{ product.name }}</h3>
+          <p class="description">{{ product.description }}</p>
+
+          <div class="bottom">
+            <span class="price">{{ product.price }}</span>
+            <button class="btn-outline" (click)="addToCart(product)">
+              <span class="material-icons">shopping_bag</span>
+              Add
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center">
+      <button class="btn-primary">View All Products</button>
+    </div>
+  </div>
+</section>

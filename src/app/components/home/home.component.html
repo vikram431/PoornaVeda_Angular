@@ -1,0 +1,23 @@
+<div class="min-h-screen">
+  <app-announcement-bar></app-announcement-bar>
+
+  <app-navigation
+      [cartItemsCount]="cartItemsCount"
+      (cartClick)="onCartOpen()">
+  </app-navigation>
+
+  <app-hero></app-hero>
+  <app-products></app-products>
+  <app-values></app-values>
+  <app-story></app-story>
+  <app-footer></app-footer>
+</div>
+
+<!-- CART SHEET -->
+<app-cart-sheet
+*ngIf="cartOpen"
+    [open]="cartOpen"
+    (openChange)="onCartClose()">
+</app-cart-sheet>
+
+<router-outlet></router-outlet>

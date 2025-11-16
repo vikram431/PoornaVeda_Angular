@@ -1,0 +1,24 @@
+<section class="values-section">
+  <div class="container">
+    <div class="text-center header">
+      <h2>
+        The Pillars of <span class="text-primary">PoornaVeda</span>
+      </h2>
+      <p>Four sacred principles that guide everything we create</p>
+    </div>
+
+    <div class="values-grid">
+      <div
+        class="value-card"
+        *ngFor="let value of values"
+        [ngClass]="value.color"
+      >
+        <div class="icon-wrapper">
+          <span class="material-icons">{{ value.icon }}</span>
+        </div>
+        <h3>{{ value.title }}</h3>
+        <p>{{ value.description }}</p>
+      </div>
+    </div>
+  </div>
+</section>
