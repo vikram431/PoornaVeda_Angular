@@ -1,0 +1,249 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@400;500&display=swap');
+
+/* MAIN LABEL */
+.label {
+  width: 420px;
+  height: 640px;
+  position: relative;
+  border-radius: 22px;
+  background: #f7efe6;
+  box-shadow: 0 30px 70px rgba(70,30,10,0.35);
+  overflow: hidden;
+  font-family: 'Poppins', sans-serif;
+}
+
+
+
+/* FOLK PATTERN OVERLAY */
+.folk-pattern-overlay {
+  position: absolute;
+  inset: 0;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%238a3d12' stroke-width='1.2' opacity='0.25'%3E%3Ccircle cx='60' cy='60' r='18'/%3E%3Ccircle cx='60' cy='60' r='32'/%3E%3Ccircle cx='60' cy='60' r='46'/%3E%3Cline x1='60' y1='6' x2='60' y2='18'/%3E%3Cline x1='60' y1='102' x2='60' y2='114'/%3E%3Cline x1='6' y1='60' x2='18' y2='60'/%3E%3Cline x1='102' y1='60' x2='114' y2='60'/%3E%3Cline x1='22' y1='22' x2='32' y2='32'/%3E%3Cline x1='98' y1='98' x2='88' y2='88'/%3E%3Cline x1='22' y1='98' x2='32' y2='88'/%3E%3Cline x1='98' y1='22' x2='88' y2='32'/%3E%3C/g%3E%3C/svg%3E");
+  /* background-repeat: repeat; */
+  opacity: 0.35;
+  pointer-events: none;
+  z-index: 1;
+  filter: blur(0.2px);
+}
+
+.festival-chhath .folk-pattern-overlay {
+  opacity: 0.45;
+}
+
+@keyframes slowDrift {
+  from { background-position: 0 0; }
+  to { background-position: 120px 120px; }
+}
+
+.folk-pattern-overlay {
+  animation: slowDrift 60s linear infinite;
+}
+
+
+
+/* FESTIVAL VARIANTS */
+.festival-chhath {
+  --accent: #b8571b;
+  --folk: rgba(130, 60, 20, 0.18);
+}
+
+.festival-diwali {
+  --accent: #8a3d12;
+  --folk: rgba(150, 80, 30, 0.2);
+}
+
+/* FOLK BACKGROUND */
+.folk-bg {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 90px;
+  background:
+    repeating-linear-gradient(
+      135deg,
+      var(--folk) 0px,
+      var(--folk) 2px,
+      transparent 2px,
+      transparent 14px
+    );
+}
+
+.folk-bg.left { left: 0; }
+.folk-bg.right {
+  right: 0;
+  transform: scaleX(-1);
+}
+
+/* CONTENT */
+.content {
+  position: relative;
+  z-index: 2;
+  padding: 36px 40px;
+  text-align: center;
+}
+
+/* FESTIVAL TAG */
+.festival-tag {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 14px;
+  background: var(--accent);
+  color: #fff3dc;
+  font-size: 12px;
+  margin-bottom: 20px;
+}
+
+/* BRAND */
+.brand {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 26px;
+}
+
+.brand-mark {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--accent), #4e1f07);
+  color: #ffe2b0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Playfair Display', serif;
+}
+
+.brand h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 30px;
+  color: #5a2208;
+}
+
+.brand p {
+  font-size: 12px;
+  color: #7b4a2a;
+}
+
+/* PRODUCT */
+.product-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 44px;
+  color: #4a1c06;
+}
+
+/* HAND DRAWN THEKUA */
+.thekua-art {
+  margin: 18px auto 22px;
+  position: relative;
+  width: 140px;
+  height: 90px;
+}
+
+.thekua {
+  position: absolute;
+  width: 70px;
+  height: 40px;
+  background: radial-gradient(circle at top, #e1a15a, #8b4a1a);
+  border-radius: 50% 50% 40% 40%;
+  box-shadow:
+    inset 0 3px 6px rgba(255,255,255,0.3),
+    inset 0 -4px 6px rgba(0,0,0,0.25);
+}
+
+.thekua.one {
+  left: 0;
+  top: 30px;
+  transform: rotate(-12deg);
+}
+
+.thekua.two {
+  left: 35px;
+  top: 10px;
+}
+
+.thekua.three {
+  left: 70px;
+  top: 32px;
+  transform: rotate(10deg);
+}
+
+/* DESCRIPTION */
+.desc {
+  font-size: 15px;
+  line-height: 1.6;
+  color: #6b3a1c;
+  margin-bottom: 22px;
+}
+
+/* INGREDIENTS */
+.ingredients {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.ingredients span {
+  padding: 8px 14px;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+  font-size: 13px;
+  color: #6a2e0f;
+}
+
+/* TRUST */
+.trust {
+  font-size: 13px;
+  color: #6a2e0f;
+  letter-spacing: 0.4px;
+}
+
+
+
+/* FLOATING THEKUA */
+.thekua {
+  animation: float 4s ease-in-out infinite;
+}
+
+.thekua.one { animation-delay: 0s; }
+.thekua.two { animation-delay: 0.6s; }
+.thekua.three { animation-delay: 1.2s; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(2deg); }
+}
+
+/* FADE IN CONTENT */
+.content {
+  animation: fadeUp 1.2s ease-out;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* FESTIVAL TAG GLOW */
+.festival-tag {
+  animation: glow 2.5s ease-in-out infinite;
+}
+
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 0 rgba(184,87,27,0);
+  }
+  50% {
+    box-shadow: 0 0 14px rgba(184,87,27,0.6);
+  }
+}
+
+

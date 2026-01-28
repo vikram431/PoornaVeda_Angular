@@ -1,0 +1,87 @@
+.back-label {
+  width: 420px;
+  height: 640px;
+  background: #f7efe6;
+  border-radius: 22px;
+  padding: 34px 36px;
+  font-family: 'Poppins', sans-serif;
+  color: #5a2a10;
+  box-shadow: 0 25px 60px rgba(70,30,10,0.35);
+}
+
+.back-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+}
+
+.sub {
+  font-size: 13px;
+  color: #7c4a2a;
+  margin-bottom: 18px;
+}
+
+.story {
+  font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+
+/* NUTRITION */
+.nutrition h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.nutrition table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.nutrition td {
+  padding: 8px 0;
+  border-bottom: 1px dashed #c7a58b;
+}
+
+.nutrition td:last-child {
+  text-align: right;
+}
+
+.note {
+  font-size: 11px;
+  margin-top: 6px;
+  color: #7a4a2a;
+}
+
+/* FOOTER */
+.back-footer {
+  margin-top: 26px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.qr-box {
+  text-align: center;
+}
+
+.qr-placeholder {
+  width: 72px;
+  height: 72px;
+  border: 2px dashed #7a3712;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+.qr-box p {
+  font-size: 11px;
+  margin-top: 6px;
+}
+
+.meta p {
+  font-size: 12px;
+  margin-bottom: 4px;
+}
