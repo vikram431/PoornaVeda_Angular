@@ -78,6 +78,7 @@
 
 .link-list a:hover {
   color: #ff9933;
+  cursor: pointer;
 }
 
 .contact-list li {

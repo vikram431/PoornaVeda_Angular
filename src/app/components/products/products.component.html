@@ -1,11 +1,18 @@
+<app-navigation></app-navigation>
 <section class="products-section">
-  <div class="container">
+  <div class="container gradient-earth">
     <div class="header">
       <h2>Our Sacred <span class="text-primary">Offerings</span></h2>
       <p>Discover products that bring the essence of Indian wisdom to your home</p>
     </div>
 
     <div class="products-grid">
+      <app-product-card *ngFor="let p of products"
+       [products]="p">
+      </app-product-card>
+    </div>
+
+    <!-- <div class="products-grid">
       <div class="product-card" *ngFor="let product of products">
         <div class="image-wrapper">
           <img [src]="product.image" [alt]="product.name" />
@@ -25,10 +32,11 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
 
-    <div class="text-center">
+    <!-- <div class="text-center">
       <button class="btn-primary">View All Products</button>
-    </div>
+    </div> -->
   </div>
 </section>
+

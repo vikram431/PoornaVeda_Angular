@@ -11,7 +11,9 @@ import { StoryComponent } from '../story/story.component';
 import { FooterComponent } from '../footer/footer.component';
 import { NavigationComponent } from '../navigation/navigation.component';
 import { CartSheetComponent } from '../cart-sheet/cart-sheet.component';
-
+import { FeatureProductComponent } from '../feature-product/feature-product.component';
+// import { FoodLabelComponent } from '../../food-label/food-label.component';
+// import { FoodlabelBackComponent } from '../../foodlabel-back/foodlabel-back.component';
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -20,25 +22,31 @@ import { CartSheetComponent } from '../cart-sheet/cart-sheet.component';
     NavigationComponent,
     RouterOutlet,
     HeroComponent,
-    ProductsComponent,
+    // ProductsComponent,
     ValuesComponent,
     StoryComponent,
     FooterComponent,
     AnnouncementBarComponent,
-    CartSheetComponent
+    // CartSheetComponent,
+    FeatureProductComponent
+    // FoodLabelComponent,
+    // FoodlabelBackComponent
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent {
-  cartOpen = false;
-  cartItemsCount = 3; // Example value
+  // cartOpen = false;
+  // cartItemsCount = 0; 
 
-  onCartOpen(): void {
-    this.cartOpen = true;
-  }
+// session = { userId: 1 }; 
 
-  onCartClose(): void {
-    this.cartOpen = false;
-  }
+// onCartOpen() {
+//   this.cartOpen = true;
+// }
+
+// onCartClose() {
+//   this.cartOpen = false;
+// }
+
 }

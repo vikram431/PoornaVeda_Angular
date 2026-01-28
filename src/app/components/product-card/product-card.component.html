@@ -1,0 +1,19 @@
+<div class="product-card">
+  <div class="image-wrapper">
+    <img [src]="products.image" [alt]="products.name" />
+  </div>
+
+  <div class="product-content">
+    <p class="category">{{ products.category }}</p>
+    <h3>{{ products.name }}</h3>
+    <p class="description">{{ products.description }}</p>
+
+    <div class="bottom">
+      <span class="price">₹{{ products.price }}</span>
+      <button class="btn-outline" (click)="addToCart()">
+        <span class="material-icons">+</span>
+        Add
+      </button>
+    </div>
+  </div>
+</div>

@@ -20,9 +20,9 @@
 
     <!-- Desktop Links -->
     <div class="hidden md:flex items-center gap-6">
-      <a routerLink="/" class="nav-link">Home</a>
+      <a (click)="navigate('/')" class="nav-link">Home</a>
       <a (click)="navigate('/products')" routerLink="/products">Product</a>
-      <a routerLink="/about" class="nav-link">Our Story</a>
+      <a (click)="navigate('/about')" class="nav-link">Our Story</a>
     </div>
 
 

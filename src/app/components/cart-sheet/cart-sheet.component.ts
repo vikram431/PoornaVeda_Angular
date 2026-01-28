@@ -1,71 +1,77 @@
-import { Component, Input, Output, EventEmitter, OnChanges } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Subscription } from 'rxjs';
+import { cartService } from './cart-sheet.service';
 
-export interface CartItem {
-  id: string;
-  product_name: string;
-  product_image: string | null;
-  price: number;
-  quantity: number;
-}
 
 @Component({
   selector: 'app-cart-sheet',
-  imports:[CommonModule],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './cart-sheet.component.html',
   styleUrls: ['./cart-sheet.component.css']
 })
-export class CartSheetComponent implements OnChanges {
-  @Input() open = false;
-  @Output() openChange = new EventEmitter<boolean>();
+export class CartSheetComponent implements OnInit, OnDestroy {
 
-  @Input() session: any | null = null;
+  isOpen = false;
+  session = { userId: 1 }; // mock session
+  cartItems: any[] = [];
 
-  cartItems: CartItem[] = [];
   loading = false;
 
-  ngOnChanges(): void {
-    if (this.open && this.session) {
-      this.loadCartItems();
+  private cartSub!: Subscription;
+
+  constructor(private cartService: cartService) {}
+
+  ngOnInit(): void {
+    this.cartSub = this.cartService.cartOpen$.subscribe((isOpen:boolean)=> {
+      this.isOpen = isOpen;
+
+      if (isOpen) {
+        this.loadCartItems();
+      }
+    });
+
+    this.cartService.cartItems$.subscribe(items=>{
+      this.cartItems=items;
+      console.log(this.cartItems);
+    })
+  }
+
+  ngOnDestroy(): void {
+    if (this.cartSub) {
+      this.cartSub.unsubscribe();
     }
   }
 
-  closeSheet() {
-    this.openChange.emit(false);
+  closeSheet(): void {
+    this.cartService.closeCart();
   }
 
-  async loadCartItems() {
+  loadCartItems(): void {
     this.loading = true;
 
-    // 👉 REPLACE with real API call
+    // Simulated API call
     setTimeout(() => {
-      this.cartItems = [
-        {
-          id: '1',
-          product_name: 'Sample Product',
-          product_image: null,
-          price: 199,
-          quantity: 1
-        }
-      ];
+      this.cartItems
       this.loading = false;
     }, 500);
   }
 
-  updateQuantity(id: string, qty: number) {
+  updateQuantity(id: string, qty: number): void {
     if (qty < 1) return;
 
     const item = this.cartItems.find(i => i.id === id);
-    if (!item) return;
-
-    item.quantity = qty;
+    if (item) {
+      item.quantity = qty;
+    }
   }
 
-  removeItem(id: string) {
-    this.cartItems = this.cartItems.filter(i => i.id !== id);
+  removeItem(id: string): void {
+    this.cartService.removeFromCart(id);
   }
 
-  get total() {
-    return this.cartItems.reduce((s, i) => s + i.price * i.quantity, 0);
+  get total(): number {
+    return this.cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
   }
 }
