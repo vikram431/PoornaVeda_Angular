@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators ,ReactiveFormsModule} from '@angular/forms';
 import { Router,RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { AuthService } from './auth.service';
 @Component({
   selector: 'app-auth',
   imports:[CommonModule,RouterOutlet,ReactiveFormsModule],
@@ -13,7 +14,7 @@ export class AuthComponent {
   loading = false;
   authForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) {
     this.authForm = this.fb.group({
       fullName: [''],
       email: ['', [Validators.required, Validators.email]],
@@ -52,9 +53,16 @@ async onSubmit(): Promise<void> {
 
     try {
       if (this.isLogin) {
-        console.log("Login:", { email, password });
+        console.log(this.authForm.value.email);
+        this.authService.getuserdetails(email).subscribe(res=>{
+            console.log(res);
+        });
+
+
+        // console.log("Login:", { email, password });
         alert("Login successful (dummy)");
-      } else {
+      } 
+      else {
         console.log("Signup:", { fullName, email, password });
         alert("Signup successful (dummy)");
       }

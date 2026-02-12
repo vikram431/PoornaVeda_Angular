@@ -1,1 +1,45 @@
-<p>contact works!</p>
+<div class="products-section">
+    <div class="form">
+        <div class="card">
+            <div [formGroup]="contactForm" class="card-content">
+                <div>
+                    <label class="block text-sm font-medium">Name</label>
+                    <input type="text" name="name" placeholder="Enter Name" formControlName="name" />
+                    <p class="error-text"
+                        *ngIf="contactForm.get('name')?.touched && contactForm.get('name')?.hasError('required') && contactForm.get('name')?.invalid">
+                        name is required.
+                    </p>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium">Email Id</label>
+                    <input type="email" name="email" placeholder="Enter Email" formControlName="email" />
+                    <p class="error-text"
+                        *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.hasError('required') && contactForm.get('email')?.invalid">
+                        Email is required.
+                    </p>
+
+                </div>
+                <div>
+                    <label class="block text-sm font-medium">Phone Number</label>
+                    <input type="number" name="phone" placeholder="Enter phone" formControlName="phone" />
+                    <p class="error-text"
+                        *ngIf="contactForm.get('phone')?.touched && contactForm.get('phone')?.hasError('required') && contactForm.get('phone')?.invalid">
+                        Phone Number is required.
+                    </p>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium">Comment</label>
+                    <textarea type="text" rows="4" name="comment" placeholder="Enter comment"
+                        formControlName="comment"></textarea>
+
+
+                </div>
+                <div class="btn-class">
+                <button>Submit</button>
+            </div>
+
+            </div>
+            
+        </div>
+    </div>
+</div>

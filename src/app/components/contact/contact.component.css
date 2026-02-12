@@ -1,0 +1,68 @@
+.products-section {
+  background: linear-gradient(180deg, #fbf6ea, #efddb3);
+  padding: 1rem 1rem;
+  min-height: 100vh;
+}
+
+
+.form {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;  
+  justify-content: center;
+}
+
+.card {
+  width: 100%;                       /* w-full */
+  max-width: 28rem;                  /* max-w-md */
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  padding: 2rem;
+}
+
+input {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  /* margin-  top: 16px; */
+  box-sizing: border-box;
+}
+input:focus {
+  border-color: #3B6B4B;
+  outline: none;
+}
+
+textarea {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+  /* margin-top: 16px; */
+  box-sizing: border-box;
+}
+textarea:focus {
+  border-color: #3B6B4B;
+  outline: none;
+}
+
+
+
+.btn-class{
+  align-items: center;
+  text-align: center;
+}
+
+.error-text {
+  color: #dc2626;
+  font-size: 0.875rem;
+  margin-top: 4px;
+}
+
+.card-content > * + * {
+  margin-top: 1rem;                 
+}

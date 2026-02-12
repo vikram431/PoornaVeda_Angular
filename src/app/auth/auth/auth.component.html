@@ -13,27 +13,22 @@
     </div>
 
     <form [formGroup]="authForm" (ngSubmit)="onSubmit()" class="card-content space-y-4">
-     <div *ngIf="!isLogin" class="space-y-1">
-  <label class="block text-sm font-medium">Full Name</label>
+      <div *ngIf="!isLogin" class="space-y-1">
+        <label class="block text-sm font-medium">Full Name</label>
 
-  <input
-    class="input"
-    formControlName="fullName"
-    placeholder="Enter your full name"
-  />
+        <input class="input" formControlName="fullName" placeholder="Enter your full name" />
 
-  <!-- ❗ ERROR MESSAGE -->
-  <p class="error-text" *ngIf="authForm.get('fullName')?.touched && authForm.get('fullName')?.hasError('required')">
-    Full name is required.
-  </p>
-</div>
+        <!-- ❗ ERROR MESSAGE -->
+        <p class="error-text"
+          *ngIf="authForm.get('fullName')?.touched && authForm.get('fullName')?.hasError('required')">
+          Full name is required.
+        </p>
+      </div>
 
 
       <div>
         <label class="block text-sm font-medium">Email</label>
-        <input type="email" class="input" formControlName="email" [ngClass]="{
-      'input-error': authForm.get('email')?.invalid && authForm.get('email')?.touched
-    }" placeholder="Enter your email" />
+        <input type="email" class="input" formControlName="email" [ngClass]="{'input-error': authForm.get('email')?.invalid && authForm.get('email')?.touched}" placeholder="Enter your email" />
 
         <!-- Error Messages -->
         <div class="error-text" *ngIf="authForm.get('email')?.touched && authForm.get('email')?.invalid">
