@@ -39,10 +39,10 @@ export class NavigationComponent implements OnInit {
   }
 
     onProfileClick(): void {
-    const userid = '2';
-    this.authService.getuserdetails(userid).subscribe(res=>{
-        console.log(res);
-    })
+    // const userid = '2';
+    // this.authService.getuserdetails(userid).subscribe(res=>{
+        console.log('Profile');
+    // })
 
   }
 
