@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators ,ReactiveFormsModule} from '@angular/forms';
-import { Router,RouterOutlet } from '@angular/router';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Router, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from './auth.service';
 @Component({
   selector: 'app-auth',
-  imports:[CommonModule,RouterOutlet,ReactiveFormsModule],
+  imports: [CommonModule, RouterOutlet, ReactiveFormsModule],
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.css']
 })
@@ -18,30 +18,31 @@ export class AuthComponent {
     this.authForm = this.fb.group({
       fullName: [''],
       email: ['', [Validators.required, Validators.email]],
-password: [
+      password: [
         '',
         [
           Validators.required,
           Validators.minLength(6),
           Validators.pattern(/^(?=.*[A-Z])(?=.*[!@#$%^&*])/)
         ]
-      ]    });
+      ]
+    });
   }
 
-toggleAuthMode(): void {
-  this.isLogin = !this.isLogin;
+  toggleAuthMode(): void {
+    this.isLogin = !this.isLogin;
 
-  if (!this.isLogin) {
-    this.authForm.get('fullName')?.setValidators([Validators.required]);
-  } else {
-    this.authForm.get('fullName')?.clearValidators();
+    if (!this.isLogin) {
+      this.authForm.get('fullName')?.setValidators([Validators.required]);
+    } else {
+      this.authForm.get('fullName')?.clearValidators();
+    }
+
+    this.authForm.get('fullName')?.updateValueAndValidity();
   }
 
-  this.authForm.get('fullName')?.updateValueAndValidity();
-}
 
-
-async onSubmit(): Promise<void> {
+  async onSubmit(): Promise<void> {
     if (this.authForm.invalid) {
       this.authForm.markAllAsTouched(); // highlight errors
       return;
@@ -54,20 +55,30 @@ async onSubmit(): Promise<void> {
     try {
       if (this.isLogin) {
         console.log(this.authForm.value.email);
-        this.authService.getuserdetails(email).subscribe(res=>{
+        this.authService.getuserdetails(email, password).subscribe({
+          next: (res) => {
             console.log(res);
+            localStorage.setItem("token", res.token);
+            console.log(localStorage);
+            this.router.navigate(['/']);
+          },
+          error: (err) => {
+            if (err.status === 404) {
+              console.log("User not found");
+            } if (err.status === 401) {
+              alert("Invalid Password");
+            } else {
+              console.log("Some other error occurred");
+            }
+
+          }
         });
-
-
-        // console.log("Login:", { email, password });
-        alert("Login successful (dummy)");
-      } 
+      }
       else {
         console.log("Signup:", { fullName, email, password });
         alert("Signup successful (dummy)");
+        this.router.navigate(['/']);
       }
-
-      this.router.navigate(['/']);
     } catch (error) {
       alert("Something went wrong. Please try again.");
     } finally {

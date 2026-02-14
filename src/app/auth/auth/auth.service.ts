@@ -11,10 +11,15 @@ export class AuthService {
    
   private apiUrl = 'http://localhost:8080/getUserDetails/userByEmailId';
 
-  getuserdetails(userid: string): Observable<string>{
+  getuserdetails(EmailId: string, password :string ): Observable<any>{
     const headers=new HttpHeaders({ 'Content-Type': 'application/json' });
-    const params=new HttpParams()
-            .set('EmailId', userid);
-    return this.http.get(this.apiUrl,{headers,params, responseType: 'text'})
+    // const params=new HttpParams()
+    //         .set('EmailId', EmailId)
+    //         .set('password',password);
+    const body = {
+    email: EmailId,
+    password: password
+  };
+    return this.http.post<any>(this.apiUrl,body,{headers})
   }
 }
