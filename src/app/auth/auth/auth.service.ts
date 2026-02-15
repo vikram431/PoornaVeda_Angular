@@ -9,9 +9,9 @@ export class AuthService {
 
   constructor(private http:HttpClient) {}
    
-  private apiUrl = 'http://localhost:8080/getUserDetails/userByEmailId';
+  private apiUrl = 'http://localhost:8080/auth/login';
 
-  getuserdetails(EmailId: string, password :string ): Observable<any>{
+  authenticateUser(EmailId: string, password :string ): Observable<any>{
     const headers=new HttpHeaders({ 'Content-Type': 'application/json' });
     // const params=new HttpParams()
     //         .set('EmailId', EmailId)
@@ -20,6 +20,7 @@ export class AuthService {
     email: EmailId,
     password: password
   };
+    console.log(headers);
     return this.http.post<any>(this.apiUrl,body,{headers})
   }
 }

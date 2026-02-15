@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { Router, RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from './auth.service';
+import { RegisterService } from './register.service';
 @Component({
   selector: 'app-auth',
   imports: [CommonModule, RouterOutlet, ReactiveFormsModule],
@@ -14,7 +15,7 @@ export class AuthComponent {
   loading = false;
   authForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) {
+  constructor(private fb: FormBuilder, private router: Router, private authService: AuthService, private registerService: RegisterService) {
     this.authForm = this.fb.group({
       fullName: [''],
       email: ['', [Validators.required, Validators.email]],
@@ -55,7 +56,7 @@ export class AuthComponent {
     try {
       if (this.isLogin) {
         console.log(this.authForm.value.email);
-        this.authService.getuserdetails(email, password).subscribe({
+        this.authService.authenticateUser(email, password).subscribe({
           next: (res) => {
             console.log(res);
             localStorage.setItem("token", res.token);
@@ -75,9 +76,40 @@ export class AuthComponent {
         });
       }
       else {
+        const requestbody = {
+            name: fullName,
+            password: password,
+            emailId:email
+          };
+
+        this.registerService.registerUser(requestbody).subscribe({
+          next: (res)=>{
+            console.log(res);
+             if(res.responseCode === '302 FOUND'){
+              alert("User Already Exists")
+            }
+            else{
+               localStorage.setItem("token", res.token);
+               
+               alert("Signup successful (dummy)");
+               this.router.navigate(['/']);
+            }
+          },
+          error:(err)=>{
+            if(err.status === 302){
+              alert("User Already Exists")
+            }
+            else{
+              console.log("some error ocuured")
+            }
+
+          }
+          
+        });
+
         console.log("Signup:", { fullName, email, password });
-        alert("Signup successful (dummy)");
-        this.router.navigate(['/']);
+       
+        
       }
     } catch (error) {
       alert("Something went wrong. Please try again.");
