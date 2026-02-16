@@ -27,32 +27,32 @@
 
 
     <!-- Right Side -->
-    <div class="flex items-center gap-4">
+    <div class="items-center gap-4">
       <!-- Cart -->
-      <button class="icon-btn" (click)="onCartClick()">
-        <i class="fa-solid fa-shopping-cart"></i>
-        <span *ngIf="cartItemsCount > 0" class="cart-badge">
-          {{ cartItemsCount }}
-        </span>
-      </button>
+      <div>
 
+        <a (click)="onProfileClick()">
+          <i class="fa-regular fa-user mr-2"></i> Profile
+        </a>
 
-      <!-- User Menu -->
-      <ng-container *ngIf="isLoggedIn; else loginButton">
-        <div class="relative group">
-          <button class="icon-btn">
-            <i class="fa-solid fa-user text-lg"></i>
-          </button>
-          <div class="dropdown hidden group-hover:block">
-            <a (click)="onProfileClick()" class="dropdown-item">
-              <i class="fa-regular fa-user mr-2"></i> Profile
-            </a>
-            <a (click)="signOut()" class="dropdown-item">
-              <i class="fa-solid fa-right-from-bracket mr-2"></i> Sign Out
-            </a>
-          </div>
-        </div>
-      </ng-container>
+        <button class="icon-btn" (click)="onCartClick()">
+          <i class="fa-solid fa-shopping-cart"></i>
+          <span *ngIf="cartItemsCount > 0" class="cart-badge">
+            {{ cartItemsCount }}
+          </span>
+        </button>
+
+      </div>
+
+      <!-- <div *ngIf="isLoggedIn; else loginButton">
+        
+      </div> -->
+      <!-- <div>
+        <a (click)="signOut()">
+          <i class="fa-solid fa-right-from-bracket mr-2"></i> Sign Out
+        </a>
+      </div> -->
+      
 
       <ng-template #loginButton>
         <button class="btn-primary" (click)="navigate('/auth')">Sign In</button>

@@ -17,7 +17,12 @@ export class NavigationComponent implements OnInit {
   mobileMenuOpen = false;
 
   constructor(private router: Router, private cartService: cartService,private authService :AuthService) {
+        this.authService.isLoogedIn$.subscribe(status=>{
 
+          this.isLoggedIn=status
+          console.log(this.isLoggedIn);
+
+        })
   }
 
   ngOnInit(): void {
@@ -39,6 +44,7 @@ export class NavigationComponent implements OnInit {
   }
 
     onProfileClick(): void {
+     this.navigate('profile');
     // const userid = '2';
     // this.authService.getuserdetails(userid).subscribe(res=>{
         console.log('Profile');
@@ -48,7 +54,8 @@ export class NavigationComponent implements OnInit {
 
 
   signOut(): void {
-    this.isLoggedIn = false;
+
+    this.authService.logout();
     alert('Signed out');
     // Later: Call your backend logout API
   }

@@ -4,6 +4,7 @@ import { ProductsComponent } from './components/products/products.component';
 import { AuthComponent } from './auth/auth/auth.component';
 import { CartSheetComponent } from './components/cart-sheet/cart-sheet.component';
 import { ContactComponent } from './components/contact/contact.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -11,5 +12,6 @@ export const routes: Routes = [
   { path: 'cart-sheet', component: CartSheetComponent },
   {path:'contact',component:ContactComponent},
   { path: 'auth', component: AuthComponent },
+  { path: 'profile', component: ProfileComponent },
   { path: '**', redirectTo: '' }
 ];

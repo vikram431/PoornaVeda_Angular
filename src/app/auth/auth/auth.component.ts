@@ -60,6 +60,7 @@ export class AuthComponent {
           next: (res) => {
             console.log(res);
             localStorage.setItem("token", res.token);
+            this.authService.setLoginStatus(true);
             console.log(localStorage);
             this.router.navigate(['/']);
           },

@@ -99,6 +99,9 @@
   color: #ff9933;
 }
 
+.flex-col{
+flex-direction: row;
+}
 /* Mobile Menu */
 .mobile-menu {
   display: flex;
