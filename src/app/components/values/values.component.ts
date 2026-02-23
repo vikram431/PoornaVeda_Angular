@@ -18,7 +18,7 @@ interface ValueItem {
 export class ValuesComponent {
   values: ValueItem[] = [
     {
-      icon: 'eco',
+      icon: 'icon',
       title: 'Natural Purity',
       description:
         'Made with the finest natural ingredients, following traditional recipes passed down through generations.',

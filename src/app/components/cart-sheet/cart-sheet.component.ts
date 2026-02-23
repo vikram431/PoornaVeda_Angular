@@ -21,7 +21,9 @@ export class CartSheetComponent implements OnInit, OnDestroy {
 
   private cartSub!: Subscription;
 
-  constructor(private cartService: cartService) {}
+  constructor(private cartService: cartService) {
+   
+  }
 
   ngOnInit(): void {
     this.cartSub = this.cartService.cartOpen$.subscribe((isOpen:boolean)=> {
@@ -36,6 +38,8 @@ export class CartSheetComponent implements OnInit, OnDestroy {
       this.cartItems=items;
       console.log(this.cartItems);
     })
+
+ 
   }
 
   ngOnDestroy(): void {
@@ -61,9 +65,13 @@ export class CartSheetComponent implements OnInit, OnDestroy {
   updateQuantity(id: string, qty: number): void {
     if (qty < 1) return;
 
-    const item = this.cartItems.find(i => i.id === id);
+    const item = this.cartItems.find(i => i.Id === id);
     if (item) {
       item.quantity = qty;
+      console.log('cart data',item);
+      this.cartService.addDataInCart(item).subscribe(res=>{
+        console.log('data save successfully',res);
+      })
     }
   }
 
@@ -73,5 +81,9 @@ export class CartSheetComponent implements OnInit, OnDestroy {
 
   get total(): number {
     return this.cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  }
+
+  onClickProceed():any{
+
   }
 }

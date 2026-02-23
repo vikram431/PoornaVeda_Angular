@@ -3,10 +3,12 @@ import { AuthService } from '../../auth/auth/auth.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { ProfileService } from './profile.service';
+import { NavigationComponent } from '../navigation/navigation.component';
 @Component({
   standalone:true,
   selector: 'app-profile',
-  imports: [FormsModule,CommonModule],
+  imports: [FormsModule,CommonModule,NavigationComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
@@ -15,22 +17,30 @@ export class ProfileComponent {
   user: any = {};
   newPassword: string = '';
 
-  constructor(private authService: AuthService,private router:Router) {}
+  constructor(private authService: AuthService,private router:Router,private profileService:ProfileService) {}
 
   ngOnInit(): void {
-    // this.fetchUserDetails();
+    this.fetchUserDetails();
   }
 
   fetchUserDetails() {
-  //   this.authService.getUserDetails().subscribe(res => {
-  //     this.user = res;
-  //   });
-  alert("Profile Updated Successfully");
+
+    const emailId=localStorage.getItem('emailId') ??  '';
+     console.log(emailId);
+     
+    this.profileService.getUserDetails(emailId).subscribe(res => {
+      //  console.log(res)
+       this.user=res;
+       console.log(this.user)
+
+    });
+
+  // alert("Profile Updated Successfully");
   }
 
   updateProfile() {
   //   this.authService.updateUser(this.user).subscribe(res => {
-      alert("Profile Updated Successfully");
+      // alert("Profile Updated Successfully");
   //   });
   }
 

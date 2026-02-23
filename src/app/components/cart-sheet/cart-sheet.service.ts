@@ -1,9 +1,10 @@
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, map } from "rxjs";
+import { BehaviorSubject, map, Observable } from "rxjs";
 
 export interface CartItem {
-  id :string;
-  name: string;
+  Id :string;
+  ProductName: string;
   category: string;
   description: string;
   price: number;
@@ -15,16 +16,16 @@ export interface CartItem {
     providedIn:'root'
 })
 export class cartService{
+
+constructor(private http:HttpClient){};
+
 private cartOpenSubject= new BehaviorSubject<boolean>(false);
-//   private cartOpenSubject = new BehaviorSubject<boolean>(false);
 cartOpen$=this.cartOpenSubject.asObservable();
 
-// private cartCountSubject = new BehaviorSubject<number>(0);
 
 private cartItemsSubject = new BehaviorSubject<CartItem[]>([]);
 cartItems$=this.cartItemsSubject.asObservable();
 
-// cartCount$=this.cartItemsSubject.asObservable();
 
   cartCount$ = this.cartItems$.pipe(
     map((items: CartItem[]) => items.reduce((sum, i) => sum + i.quantity, 0))
@@ -32,8 +33,9 @@ cartItems$=this.cartItemsSubject.asObservable();
 
 
 addToCart(product: any){
+    console.log(this.cartItemsSubject.value);
     const items= [...this.cartItemsSubject.value]
-    const existing= items.find(i => i.id===product.id)
+    const existing= items.find(i => i.Id===product.Id)
 
     if(existing){
         existing.quantity++;
@@ -41,29 +43,26 @@ addToCart(product: any){
     }
     else{
          items.push({
-            id :product.id,
-            name: product.name,
+            Id :product.Id,
+            ProductName: product.ProductName,
             category: product.category,
             description: product.description,
             price: product.price,
             image: product.image,
-            quantity:product.quantity
+            quantity:0
       });
     }
     this.cartItemsSubject.next(items);
 }
 
-removeFromCart(id:string){
+removeFromCart(Id:string){
 
-    const updatedItems = this.cartItemsSubject.value.filter(i => i.id !== id);
+    const updatedItems = this.cartItemsSubject.value.filter(i => i.Id !== Id);
     console.log('Updated items:', updatedItems);
     this.cartItemsSubject.next(updatedItems);
     
 
 }
-
-
-
 
 
 openCart(){
@@ -73,4 +72,22 @@ openCart(){
 closeCart(){
     this.cartOpenSubject.next(false);
 }
+
+private apiUrl='http://localhost:8080/cart/allItems'
+
+ getAllItems():Observable<any>{
+    const headers= new HttpHeaders({'content-type':'application/json'})
+     console.log(headers);
+   return this.http.get<any>(this.apiUrl,{headers})
+ }
+
+ private saveApiUrl='http://localhost:8080/cart/saveItems'
+
+  addDataInCart(data:string):Observable<any>{
+    const headers= new HttpHeaders({'content-type':'application/json'})
+     console.log(headers);
+   return this.http.post<any>(this.saveApiUrl,data,{headers})
+ }
+
+
 }

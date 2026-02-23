@@ -3,22 +3,29 @@
 /* -------------------------- */
 
 .auth-wrapper {
-  min-height: 100vh;                 /* min-h-screen */
-  display: flex;                     /* flex */
-  align-items: center;               /* items-center */
-  justify-content: center;           /* justify-center */
-  padding: 1rem;                     /* p-4 */
-  background: linear-gradient(180deg,
+   min-height: 100dvh;  
+  box-sizing: border-box; 
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  justify-content: center;
+  /* background: linear-gradient(180deg,
     #fbf6ea,
-    #efddb3);
+    #efddb3); */
   background-size: cover;
+   background-image: url("/assets/hero-image.jpg");
+
 }
 
-/* -------------------------- */
-/* Card Container             */
-/* -------------------------- */
+@media (min-width: 992px) {
+  .auth-wrapper {
+    justify-content: flex-end;
+    padding-right: 4rem;
+  }
+}
 
 .card {
+  height: 50%;
   width: 100%;                       /* w-full */
   max-width: 28rem;                  /* max-w-md */
   background: #fff;

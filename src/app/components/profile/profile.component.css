@@ -1,10 +1,10 @@
 .profile-container {
-  min-height: 100vh;
+  /* min-height: 100vh; */
   background-color: #f5f7fa;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 40px 20px;
+  /* padding: 40px 20px; */
 }
 
 .profile-section{
@@ -13,7 +13,7 @@ justify-content: space-between;
 }
 .profile-card {
   width: 100%;
-  max-width: 700px;
+  /* max-width: 700px; */
   background: #ffffff;
   padding: 30px;
   border-radius: 12px;
@@ -23,9 +23,15 @@ justify-content: space-between;
 .profile-header {
   display: flex;
   align-items: center;
-  border-bottom: 1px solid #eee;
+  /* border-bottom: 1px solid #eee; */
   padding-bottom: 20px;
-  margin-bottom: 25px;
+}
+hr{
+ margin-bottom: 25px;
+ /* color:#eee; */
+   border: none;              
+  height: 1px;              
+  background-color: #eee;
 }
 
 .avatar {
@@ -54,6 +60,8 @@ justify-content: space-between;
 }
 
 .section {
+  display: flex;
+  gap: 24px;
   margin-bottom: 30px;
 }
 
@@ -81,6 +89,7 @@ justify-content: space-between;
   border-radius: 6px;
   border: 1px solid #ccc;
   font-size: 14px;
+  box-sizing: border-box;
 }
 
 .form-group input:focus {

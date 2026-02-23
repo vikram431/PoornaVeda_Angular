@@ -31,7 +31,7 @@
       <!-- Cart -->
       <div>
 
-        <a (click)="onProfileClick()">
+        <a (click)="onProfileClick()" *ngIf="isLoggedIn; else loginButton">
           <i class="fa-regular fa-user mr-2"></i> Profile
         </a>
 

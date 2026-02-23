@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
@@ -12,7 +13,7 @@ export class AuthService {
   isLoogedIn$=this.LoggedIn.asObservable();
 
 
-  constructor(private http:HttpClient) {
+  constructor(private http:HttpClient,private router:Router) {
 
     const token=localStorage.getItem("token")
     if(token){
@@ -26,11 +27,16 @@ export class AuthService {
     this.LoggedIn.next(status)
   }
    
-  logout(){
+  logout(message?: string){
+
+     if (message) {
+      alert(message); // You can replace with toast/snackbar
+    }
     localStorage.removeItem("token")
     this.LoggedIn.next(false)
+    this.router.navigate(['/auth']);
   }
-  
+
   private apiUrl = 'http://localhost:8080/auth/login';
 
   authenticateUser(EmailId: string, password :string ): Observable<any>{

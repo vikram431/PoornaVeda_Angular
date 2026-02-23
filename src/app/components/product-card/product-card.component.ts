@@ -5,12 +5,12 @@ import { cartService } from '../cart-sheet/cart-sheet.service';
 
 
 interface Products {
-  id :string;
-  name: string;
+  Id :string;
+  ProductName: string;
   category: string;
   description: string;
   price: number;
-  image: string;
+  imageUrl: string;
   quantity:number;
 }
 
@@ -31,7 +31,7 @@ export class ProductCardComponent {
   
   addToCart(): void {
     this.cartService.addToCart(this.products);
-    console.log(`${this.products.name} added to cart`);
+    console.log(`${this.products.ProductName} added to cart`);
   }
    
 }
