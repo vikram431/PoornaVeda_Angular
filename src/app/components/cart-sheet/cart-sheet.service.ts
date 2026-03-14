@@ -1,93 +1,144 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, map, Observable } from "rxjs";
 
 export interface CartItem {
-  Id :string;
+  Id: string;
   ProductName: string;
   category: string;
   description: string;
   price: number;
-  image: string;
-  quantity:number;
+  imageUrl: string;
+  quantity: number;
+  cartId: string;
+  cartItemId: string;
 }
 
 @Injectable({
-    providedIn:'root'
+  providedIn: 'root'
 })
-export class cartService{
+export class cartService {
 
-constructor(private http:HttpClient){};
+  constructor(private http: HttpClient) { };
 
-private cartOpenSubject= new BehaviorSubject<boolean>(false);
-cartOpen$=this.cartOpenSubject.asObservable();
+  private cartOpenSubject = new BehaviorSubject<boolean>(false);
+  cartOpen$ = this.cartOpenSubject.asObservable();
 
 
-private cartItemsSubject = new BehaviorSubject<CartItem[]>([]);
-cartItems$=this.cartItemsSubject.asObservable();
+  private cartItemsSubject = new BehaviorSubject<CartItem[]>([]);
+  cartItems$ = this.cartItemsSubject.asObservable();
 
 
   cartCount$ = this.cartItems$.pipe(
     map((items: CartItem[]) => items.reduce((sum, i) => sum + i.quantity, 0))
   );
 
+  loadCartFromServer() {
+    this.http.get<CartItem[]>(this.apiUrl).subscribe(items => {
+      console.log('service response', items)
+      this.cartItemsSubject.next([...items]);
+    });
+  }
 
-addToCart(product: any){
-    console.log(this.cartItemsSubject.value);
-    const items= [...this.cartItemsSubject.value]
-    const existing= items.find(i => i.Id===product.Id)
+  addToCart(product: any) {
 
-    if(existing){
-        existing.quantity++;
-        console.log('existing')
+    console.log('cartItemsSubject', this.cartItemsSubject.value[0]);
+    const items = [...this.cartItemsSubject.value]
+    let existing = items.find(i => i.Id === product.Id)
+
+    if (existing) {
+      existing.quantity++;
+    } else {
+      existing = {
+        Id: product.Id,
+        ProductName: product.ProductName,
+        category: product.category,
+        description: product.description,
+        price: product.price,
+        imageUrl: product.imageUrl,
+        quantity: 1,
+        cartItemId: '',
+        cartId: ''
+      };
+      items.push(existing);
     }
-    else{
-         items.push({
-            Id :product.Id,
-            ProductName: product.ProductName,
-            category: product.category,
-            description: product.description,
-            price: product.price,
-            image: product.image,
-            quantity:0
-      });
+
+    console.log('items ', items);
+
+    this.addDataInCart(existing).subscribe(res => {
+      console.log('data save successfully', res);
+      existing.cartId = res.cartId;
+      existing.cartItemId = res.cartItemId;
+         console.log('items ', items);
+      this.cartItemsSubject.next([...items]);
+    })
+  }
+
+
+  updateQuantity(id: string, qty: number) {
+
+    const items = [...this.cartItemsSubject.value];
+    const item = items.find(i => i.Id === id);
+
+    console.log('item', item)
+    if (qty < 1) return;
+
+    if (item) {
+      item.quantity = qty;
+
+      this.addDataInCart(item).subscribe(res => {
+        console.log('data save successfully', res);
+        this.cartItemsSubject.next([...items]);
+      })
     }
-    this.cartItemsSubject.next(items);
-}
+  }
 
-removeFromCart(Id:string){
+  removeFromCart(Id: string) {
 
-    const updatedItems = this.cartItemsSubject.value.filter(i => i.Id !== Id);
-    console.log('Updated items:', updatedItems);
-    this.cartItemsSubject.next(updatedItems);
-    
+    this.removeItemFromCart(Id).subscribe(res=> {
+      console.log(res);
 
-}
+      const items = this.cartItemsSubject.value.filter(i => i.cartItemId !== Id);
+
+      this.cartItemsSubject.next([...items]);
+
+    });
+
+  }
 
 
-openCart(){
+  openCart() {
     this.cartOpenSubject.next(true);
-}
+  }
 
-closeCart(){
+  closeCart() {
     this.cartOpenSubject.next(false);
-}
+  }
 
-private apiUrl='http://localhost:8080/cart/allItems'
+  private apiUrl = 'http://localhost:8080/cart/allItems'
 
- getAllItems():Observable<any>{
-    const headers= new HttpHeaders({'content-type':'application/json'})
-     console.log(headers);
-   return this.http.get<any>(this.apiUrl,{headers})
- }
+  getAllItems(): Observable<any> {
+    const headers = new HttpHeaders({ 'content-type': 'application/json' })
+    console.log(headers);
+    return this.http.get<any>(this.apiUrl, { headers })
+  }
 
- private saveApiUrl='http://localhost:8080/cart/saveItems'
+  private saveApiUrl = 'http://localhost:8080/cart/saveItems';
 
-  addDataInCart(data:string):Observable<any>{
-    const headers= new HttpHeaders({'content-type':'application/json'})
-     console.log(headers);
-   return this.http.post<any>(this.saveApiUrl,data,{headers})
- }
+  addDataInCart(data: any): Observable<any> {
+    const headers = new HttpHeaders({ 'content-type': 'application/json' })
+    console.log(headers);
+    return this.http.post<any>(this.saveApiUrl, data, { headers })
+  }
+
+  private removeApiUrl = 'http://localhost:8080/cart/remove';
+  removeItemFromCart(Id: string): Observable<any> {
+    const params = new HttpParams().set(
+      'Id', Id
+    );
+    const headers = new HttpHeaders({ 'content-type': 'application/json' })
+    return this.http.delete<any>(this.removeApiUrl, { headers, params })
+  }
 
 
 }

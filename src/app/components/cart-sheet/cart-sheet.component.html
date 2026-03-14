@@ -30,8 +30,8 @@
       
       <div class="cart-item" *ngFor="let item of cartItems">
 
-        <img *ngIf="item.product_image"
-             [src]="item.product_image"
+        <img *ngIf="item.imageUrl"
+             [src]="item.imageUrl"
              class="item-img">
 
         <div class="item-info">
@@ -43,7 +43,7 @@
             <span>{{ item.quantity }}</span>
             <button (click)="updateQuantity(item.Id, item.quantity + 1)">+</button>
 
-            <button class="remove-btn" (click)="removeItem(item.Id)">🗑</button>
+            <button class="remove-btn" (click)="removeItem(item.cartItemId)">🗑</button>
           </div>
         </div>
 

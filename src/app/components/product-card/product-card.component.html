@@ -10,7 +10,11 @@
 
     <div class="bottom">
       <span class="price">₹{{ products.price }}</span>
-      <button class="btn-outline" (click)="addToCart()">
+      <button *ngIf ="!inCart" class="btn-outline" (click)="addToCart()">
+         <span class="material-icons">+</span>
+        Add
+      </button>
+      <button *ngIf="inCart"   class="btn-outline" (click)="updateQuantity(products.Id,products.quantity+1)">
         <span class="material-icons">+</span>
         Add
       </button>

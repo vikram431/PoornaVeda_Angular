@@ -19,7 +19,7 @@ export const AuthInterceptor: HttpInterceptorFn = (req, next) => {
       }
     });
 
-      console.log('Token Attached:', clonedReq.headers.get('Authorization'));
+      // console.log('Token Attached:', clonedReq.headers.get('Authorization'));
 
   }
   else {
@@ -31,9 +31,9 @@ export const AuthInterceptor: HttpInterceptorFn = (req, next) => {
     // ✅ Handle errors
     catchError((error: HttpErrorResponse) => {
 
-      // if (error.status === 401) {
-      //   authService.logout("Session expired. Please login again.");
-      // }
+      if (error.status === 401) {
+        authService.logout("Session expired. Please login again.");
+      }
 
       if (error.status === 403) {
         authService.logout("Access denied or token expired.");

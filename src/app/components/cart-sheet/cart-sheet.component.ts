@@ -14,7 +14,7 @@ import { cartService } from './cart-sheet.service';
 export class CartSheetComponent implements OnInit, OnDestroy {
 
   isOpen = false;
-  session = { userId: 1 }; // mock session
+  session = { userId: 1 }; 
   cartItems: any[] = [];
 
   loading = false;
@@ -22,25 +22,24 @@ export class CartSheetComponent implements OnInit, OnDestroy {
   private cartSub!: Subscription;
 
   constructor(private cartService: cartService) {
-   
+
   }
 
-  ngOnInit(): void {
-    this.cartSub = this.cartService.cartOpen$.subscribe((isOpen:boolean)=> {
-      this.isOpen = isOpen;
+ ngOnInit(): void {
 
-      if (isOpen) {
-        this.loadCartItems();
-      }
-    });
+  this.cartService.cartItems$.subscribe(items => {
+    this.cartItems = items;
+  });
 
-    this.cartService.cartItems$.subscribe(items=>{
-      this.cartItems=items;
-      console.log(this.cartItems);
-    })
+  this.cartSub = this.cartService.cartOpen$.subscribe((isOpen: boolean) => {
+    this.isOpen = isOpen;
 
- 
-  }
+    if (isOpen && this.cartItems.length === 0) {
+      this.cartService.loadCartFromServer();
+    }
+  });
+
+}
 
   ngOnDestroy(): void {
     if (this.cartSub) {
@@ -52,28 +51,30 @@ export class CartSheetComponent implements OnInit, OnDestroy {
     this.cartService.closeCart();
   }
 
-  loadCartItems(): void {
-    this.loading = true;
+  // loadCartItems(): void {
+  //   this.loading = true;
 
-    // Simulated API call
-    setTimeout(() => {
-      this.cartItems
-      this.loading = false;
-    }, 500);
+  //   this.cartService.getAllItems().subscribe(res => {
+  //     console.log('updated data fetched', res);
+  //     this.cartItems = res;
+  //   })
+  //   setTimeout(() => {
+  //     this.cartItems
+  //     this.loading = false;
+  //   }, 500);
+  // }
+
+
+  updateQuantity(id: string, qty: number) {
+    console.log('idqty', qty);
+    console.log('idqty', id);
+
+    this.cartService.updateQuantity(id, qty);
+
+
   }
 
-  updateQuantity(id: string, qty: number): void {
-    if (qty < 1) return;
 
-    const item = this.cartItems.find(i => i.Id === id);
-    if (item) {
-      item.quantity = qty;
-      console.log('cart data',item);
-      this.cartService.addDataInCart(item).subscribe(res=>{
-        console.log('data save successfully',res);
-      })
-    }
-  }
 
   removeItem(id: string): void {
     this.cartService.removeFromCart(id);
@@ -83,7 +84,7 @@ export class CartSheetComponent implements OnInit, OnDestroy {
     return this.cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
   }
 
-  onClickProceed():any{
+  onClickProceed(): any {
 
   }
 }

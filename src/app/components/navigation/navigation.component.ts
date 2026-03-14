@@ -40,9 +40,9 @@ export class NavigationComponent implements OnInit {
 
   onCartClick(): void {
       this.cartService.openCart();
-      this.cartService.getAllItems().subscribe(res=>{
-      console.log('cart items',res);
-    })
+      // this.cartService.getAllItems().subscribe(res=>{
+      // console.log('cart items',res);
+    // })
     console.log('cart-clicked');
 
    

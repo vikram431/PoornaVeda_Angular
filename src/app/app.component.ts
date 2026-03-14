@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CartSheetComponent } from './components/cart-sheet/cart-sheet.component';
+import { cartService } from './components/cart-sheet/cart-sheet.service';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -12,4 +13,9 @@ import { CartSheetComponent } from './components/cart-sheet/cart-sheet.component
 })
 export class AppComponent {
   title = 'PoornaVeda';
+    constructor(private cartService: cartService) {}
+
+ngOnInit() {
+  this.cartService.loadCartFromServer();
+}
 }

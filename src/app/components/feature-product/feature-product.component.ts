@@ -5,8 +5,8 @@ import { Router } from '@angular/router';
 import { ProductService } from '../products/products.service';
 
 interface Product {
-  id : string;
-  name: string;
+  Id : string;
+  ProductName: string;
   category: string;
   description: string;
   price: number;
@@ -24,7 +24,7 @@ export class FeatureProductComponent {
 
 
     products:any;
-    
+
     constructor(private router: Router, private productService: ProductService) {
 
       this.productService.getFeatureProducts().subscribe(res=>{
@@ -49,7 +49,7 @@ export class FeatureProductComponent {
 //       category: 'Artisanal Textiles',
 //       description: 'Pure silk cloth woven by skilled rural artisans',
 //       price: 2800,
-//       image: 'assets/images/silk.jpg',
+//       image_url: 'assets/images/silk.jpg',
 //       quantity: 1
 //     },
 //     {
