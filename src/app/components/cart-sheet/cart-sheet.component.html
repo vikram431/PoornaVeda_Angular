@@ -44,7 +44,10 @@
             <button (click)="updateQuantity(item.Id, item.quantity + 1)">+</button>
 
             <button class="remove-btn" (click)="removeItem(item.cartItemId)">🗑</button>
+
           </div>
+          <span *ngIf="item.itemOutStock">Out of Stock</span>
+
         </div>
 
       </div>
@@ -61,5 +64,4 @@
     </div>
 
   </div>
-
 </div>

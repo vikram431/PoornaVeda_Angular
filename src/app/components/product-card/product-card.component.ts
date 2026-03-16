@@ -12,6 +12,7 @@ interface Products {
   price: number;
   imageUrl: string;
   quantity: number;
+  stockQuantity: number;
 }
 
 

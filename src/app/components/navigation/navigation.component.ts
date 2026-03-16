@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { cartService } from '../cart-sheet/cart-sheet.service';
 import { AuthService } from '../../auth/auth/auth.service';
 import { ProfileService } from '../profile/profile.service';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-navigation',
@@ -13,6 +14,7 @@ import { ProfileService } from '../profile/profile.service';
 })
 export class NavigationComponent implements OnInit {
   cartItemsCount:number = 0;
+  activeRoute = '';
 
   isLoggedIn = false; // replace with backend auth check later
   mobileMenuOpen = false;
@@ -30,7 +32,23 @@ export class NavigationComponent implements OnInit {
   ngOnInit(): void {
      this.cartService.cartCount$.subscribe(count=>{
       this.cartItemsCount=count;
-    })   
+    })
+
+      this.activeRoute = this.router.url;
+
+    // Update active tab whenever route changes
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe((event: any) => {
+        this.activeRoute = event.urlAfterRedirects;
+      });
+    
+    //   this.router.events
+    // .pipe(filter(event => event instanceof NavigationEnd))
+    // .subscribe((event: any) => {
+    //   this.activeRoute = event.urlAfterRedirects;
+    // });
+
   }
 
 
@@ -66,6 +84,7 @@ export class NavigationComponent implements OnInit {
 
   navigate(path: string): void {
     console.log(path);
+    // this.activeRoute = path;
     this.router.navigate([path]);
     this.mobileMenuOpen = false;
   }

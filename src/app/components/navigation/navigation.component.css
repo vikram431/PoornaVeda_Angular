@@ -38,6 +38,12 @@
   color: #ff9933;
 }
 
+.active {
+  color: #ff9933;
+  font-weight: 600;
+  border-bottom: 2px solid #ff9933;
+}
+
 /* Buttons */
 .icon-btn {
   background: none;

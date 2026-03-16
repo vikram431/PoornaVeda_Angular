@@ -10,8 +10,10 @@ export interface CartItem {
   price: number;
   imageUrl: string;
   quantity: number;
+  stockQuantity: number;
   cartId: string;
   cartItemId: string;
+  itemOutStock: boolean;
 }
 
 @Injectable({
@@ -57,8 +59,10 @@ export class cartService {
         price: product.price,
         imageUrl: product.imageUrl,
         quantity: 1,
+        stockQuantity: product.stockQuantity,
         cartItemId: '',
-        cartId: ''
+        cartId: '',
+        itemOutStock: false
       };
       items.push(existing);
     }
@@ -69,7 +73,7 @@ export class cartService {
       console.log('data save successfully', res);
       existing.cartId = res.cartId;
       existing.cartItemId = res.cartItemId;
-         console.log('items ', items);
+      console.log('items ', items);
       this.cartItemsSubject.next([...items]);
     })
   }
@@ -78,24 +82,33 @@ export class cartService {
   updateQuantity(id: string, qty: number) {
 
     const items = [...this.cartItemsSubject.value];
-    const item = items.find(i => i.Id === id);
+    let item = items.find(i => i.Id === id);
 
     console.log('item', item)
     if (qty < 1) return;
 
     if (item) {
-      item.quantity = qty;
 
-      this.addDataInCart(item).subscribe(res => {
-        console.log('data save successfully', res);
+      if (qty > item?.stockQuantity) {
+        item.itemOutStock = true;
         this.cartItemsSubject.next([...items]);
-      })
+
+      }
+
+      else {
+        item.quantity = qty;
+        item.itemOutStock = false;
+        this.addDataInCart(item).subscribe(res => {
+          console.log('data save successfully', res);
+          this.cartItemsSubject.next([...items]);
+        })
+      }
     }
   }
 
   removeFromCart(Id: string) {
 
-    this.removeItemFromCart(Id).subscribe(res=> {
+    this.removeItemFromCart(Id).subscribe(res => {
       console.log(res);
 
       const items = this.cartItemsSubject.value.filter(i => i.cartItemId !== Id);
@@ -138,6 +151,15 @@ export class cartService {
     );
     const headers = new HttpHeaders({ 'content-type': 'application/json' })
     return this.http.delete<any>(this.removeApiUrl, { headers, params })
+  }
+
+   private saveOrderApiUrl = 'http://localhost:8080/order/save';
+   saveOrderItems(Data: any): Observable<any> {
+    // const params = new HttpParams().set(
+    //   'Id', Id
+    // );
+    const headers = new HttpHeaders({ 'content-type': 'application/json' })
+    return this.http.post<any>(this.saveOrderApiUrl, Data, { headers })
   }
 
 

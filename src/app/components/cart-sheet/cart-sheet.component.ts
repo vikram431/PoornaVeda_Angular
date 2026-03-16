@@ -85,6 +85,9 @@ export class CartSheetComponent implements OnInit, OnDestroy {
   }
 
   onClickProceed(): any {
-
+    console.log('cart items',this.cartItems);
+    this.cartService.saveOrderItems(this.cartItems).subscribe(res=>{
+         console.log('Order saved Successfully',res);
+    });
   }
 }
