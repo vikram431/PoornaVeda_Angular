@@ -4,7 +4,9 @@ import { CommonModule } from '@angular/common';
 import { cartService } from '../cart-sheet/cart-sheet.service';
 import { AuthService } from '../../auth/auth/auth.service';
 import { ProfileService } from '../profile/profile.service';
+import { SearchService } from '../../services/search.service';
 import { filter } from 'rxjs';
+
 
 @Component({
   selector: 'app-navigation',
@@ -19,7 +21,14 @@ export class NavigationComponent implements OnInit {
   isLoggedIn = false; // replace with backend auth check later
   mobileMenuOpen = false;
 
-  constructor(private router: Router, private cartService: cartService,private authService :AuthService, private profileService:ProfileService) {
+  constructor(
+    private router: Router, 
+    private cartService: cartService,
+    private authService :AuthService, 
+    private profileService:ProfileService,
+    private searchService: SearchService
+  ) {
+
         this.authService.isLoogedIn$.subscribe(status=>{
 
           this.isLoggedIn=status
@@ -66,7 +75,12 @@ export class NavigationComponent implements OnInit {
    
   }
 
-    onProfileClick(): void {
+    onSearchClick(): void {
+    this.searchService.open();
+  }
+
+  onProfileClick(): void {
+
     this.navigate('profile');
     // const userid = '2';
     // this.authService.getuserdetails(userid).subscribe(res=>{

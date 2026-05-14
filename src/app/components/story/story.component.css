@@ -1,89 +1,200 @@
 .story-section {
-  padding: 6rem 0;
-  background: linear-gradient(to bottom, #f7f3e9, #f0ead6);
+  padding: 100px 0;
+  background-color: white;
+  overflow: hidden;
 }
 
-.container {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 1.5rem;
+.story-layout {
+  display: flex;
+  gap: 60px; /* Reduced from 80px */
+  align-items: center;
 }
 
-.content-wrapper {
-  text-align: center;
+
+.story-media {
+  flex: 0.7; /* Reduced from 1 */
+  position: relative;
+  max-width: 450px; /* Added limit */
 }
 
-.header {
-  margin-bottom: 3rem;
+
+.image-stack {
+  position: relative;
+  z-index: 1;
 }
 
-.logo-icon {
-  height: 96px;
-  width: 96px;
-  margin: 0 auto 2rem;
-  animation: pulse 2s infinite;
+.stack-bg {
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  right: 20px;
+  bottom: 20px;
+  background: var(--bg-cream);
+  border-radius: 40px;
+  z-index: -1;
 }
 
-.title {
-  font-family: 'Merriweather', serif;
-  font-size: 2.5rem;
-  font-weight: bold;
-  color: #1a1a1a;
+.main-story-img {
+  width: 100%;
+  height: auto;
+  border-radius: 40px;
+  box-shadow: 20px 20px 60px rgba(0,0,0,0.05);
+  display: block;
 }
 
-.highlight-primary {
-  color: #d97706; /* saffron orange */
+.floating-quote {
+  position: absolute;
+  bottom: -30px;
+  right: -30px;
+  background: var(--primary-green);
+  color: white;
+  padding: 30px;
+  border-radius: 24px;
+  max-width: 300px;
+  box-shadow: 0 15px 35px rgba(59, 107, 75, 0.2);
+  z-index: 2;
 }
 
-.highlight-accent {
-  color: #3b6b4b; /* forest green */
+.floating-quote i {
+  font-size: 24px;
+  margin-bottom: 15px;
+  display: block;
+  opacity: 0.6;
 }
 
-.bold {
-  font-weight: 700;
-}
-
-.text-content {
-  color: #333;
+.floating-quote p {
+  margin: 0;
+  font-weight: 600;
+  line-height: 1.5;
   font-size: 1.1rem;
+}
+
+/* Info Side */
+.story-info {
+  flex: 1;
+}
+
+.pre-title {
+  color: var(--primary-green);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-weight: 700;
+  font-size: 13px;
+  margin-bottom: 15px;
+}
+
+.main-title {
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 800;
+  color: var(--text-deep);
+  margin-bottom: 30px;
+  line-height: 1.1;
+}
+
+.highlight {
+  color: var(--primary-green);
+}
+
+.etymology {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.term {
+  background: var(--bg-cream);
+  padding: 10px 20px;
+  border-radius: 50px;
+  font-size: 14px;
+}
+
+.term strong {
+  color: var(--primary-green);
+  margin-right: 8px;
+}
+
+.story-text {
+  color: var(--text-muted);
   line-height: 1.8;
+  font-size: 1.1rem;
 }
 
-.intro {
-  font-size: 1.25rem;
+.value-points {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin: 40px 0;
+}
+
+.point {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.point-icon {
+  background: var(--bg-cream);
+  width: 50px;
+  height: 50px;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--primary-green);
+  font-size: 20px;
+}
+
+.point-content strong {
+  display: block;
+  color: var(--text-deep);
+  margin-bottom: 5px;
+  font-size: 18px;
+}
+
+.point-content p {
+  margin: 0;
+  font-size: 15px;
+}
+
+.story-accent-text {
+  border-left: 4px solid var(--primary-green);
+  padding-left: 25px;
+  font-style: italic;
+  margin-bottom: 40px;
+  color: var(--text-deep);
   font-weight: 500;
-  margin-bottom: 2rem;
 }
 
-.card {
-  background: #fff;
-  border-radius: 1.5rem;
-  border: 1px solid #e5e5e5;
-  padding: 2rem;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-  text-align: left;
-  margin-bottom: 2rem;
-}
-
-.footer-text {
-  padding-top: 2rem;
-}
-
-.footer-quote {
-  font-size: 1.75rem;
-  font-family: 'Merriweather', serif;
-  font-weight: bold;
-  color: #6b2e2e; /* maroon brown */
-}
-
-/* Simple animation similar to Tailwind's animate-pulse */
-@keyframes pulse {
-  0%, 100% {
-    opacity: 1;
-    transform: scale(1);
+@media (max-width: 1024px) {
+  .story-layout {
+    flex-direction: column;
+    gap: 60px;
+    text-align: center;
   }
-  50% {
-    opacity: 0.7;
-    transform: scale(1.05);
+  
+  .story-media {
+    width: 100%;
+    max-width: 600px;
+  }
+  
+  .floating-quote {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    margin: 40px auto 0;
+    text-align: left;
+  }
+  
+  .etymology {
+    justify-content: center;
+  }
+  
+  .point {
+    text-align: left;
+  }
+  
+  .story-accent-text {
+    text-align: left;
   }
 }

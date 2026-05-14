@@ -1,23 +1,19 @@
 <section class="values-section">
   <div class="container">
-    <div class="text-center header">
-      <h2>
-        The Pillars of <span class="text-primary">PoornaVeda</span>
+    <div class="section-header">
+      <h2 class="section-title">
+        The Pillars of <span class="text-accent">PoornaVeda</span>
       </h2>
-      <p>Four sacred principles that guide everything we create</p>
+      <p class="section-subtitle">Four sacred principles that guide everything we create</p>
     </div>
 
     <div class="values-grid">
-      <div
-        class="value-card"
-        *ngFor="let value of values"
-        [ngClass]="value.color"
-      >
-        <div class="icon-wrapper">
-          <span class="material-icons">{{ value.icon }}</span>
+      <div class="value-card" *ngFor="let value of values">
+        <div class="icon-circle">
+          <i [class]="'fa-solid ' + value.icon"></i>
         </div>
-        <h3>{{ value.title }}</h3>
-        <p>{{ value.description }}</p>
+        <h3 class="value-title">{{ value.title }}</h3>
+        <p class="value-desc">{{ value.description }}</p>
       </div>
     </div>
   </div>

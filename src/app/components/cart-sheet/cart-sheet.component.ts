@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { cartService } from './cart-sheet.service';
+import { Router } from '@angular/router';
+import { PaymentComponent } from '../payment/payment.component';
 
 
 @Component({
@@ -21,7 +23,7 @@ export class CartSheetComponent implements OnInit, OnDestroy {
 
   private cartSub!: Subscription;
 
-  constructor(private cartService: cartService) {
+  constructor(private cartService: cartService,private router:Router) {
 
   }
 
@@ -86,8 +88,9 @@ export class CartSheetComponent implements OnInit, OnDestroy {
 
   onClickProceed(): any {
     console.log('cart items',this.cartItems);
-    this.cartService.saveOrderItems(this.cartItems).subscribe(res=>{
-         console.log('Order saved Successfully',res);
-    });
+     this.router.navigate(['/payment']);
+    // this.cartService.saveOrderItems(this.cartItems).subscribe(res=>{
+    //      console.log('Order saved Successfully',res);
+    // });
   }
 }

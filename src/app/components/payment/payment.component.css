@@ -1,0 +1,67 @@
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+}
+
+.card {
+  background: #fff;
+  padding: 20px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+
+.address-form{
+  margin-top: 10px;
+}
+
+.address-form .row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.address-form input {
+  flex: 1;
+}
+
+textarea {
+  width: 100%;
+  height: 80px;
+  padding: 10px;
+}
+
+.item {
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 0;
+}
+
+.address-box {
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.address-box.active {
+  border: 2px solid #ff4D15;    
+  background: #fff8e1;
+}
+
+/* .place-btn {
+  width: 100%;
+  padding: 15px;
+  background: #ffd814;
+  border: none;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.place-btn:hover {
+  background: #f7ca00;
+} */

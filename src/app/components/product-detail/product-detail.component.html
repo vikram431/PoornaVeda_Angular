@@ -1,0 +1,86 @@
+<div class="pdp-container" *ngIf="!loading && product">
+  <div class="container">
+    <nav class="breadcrumb">
+      <a routerLink="/products">Products</a>
+      <span class="separator">/</span>
+      <span class="current">{{ product.ProductName }}</span>
+    </nav>
+
+    <div class="pdp-grid">
+      <!-- Product Images -->
+      <div class="product-gallery">
+        <div class="main-image-wrapper">
+          <img [src]="product.imageUrl" [alt]="product.ProductName" class="main-image" />
+        </div>
+        <!-- Thumbnails could go here if there were multiple images -->
+      </div>
+
+      <!-- Product Info -->
+      <div class="product-info">
+        <div class="product-meta">
+          <span class="category-tag">{{ product.category }}</span>
+          <div class="rating">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star-half-stroke"></i>
+            <span class="review-count">(24 reviews)</span>
+          </div>
+        </div>
+
+        <h1 class="product-title">{{ product.ProductName }}</h1>
+        
+        <div class="price-box">
+          <span class="current-price">₹{{ product.price }}</span>
+          <span class="tax-info">Inclusive of all taxes</span>
+        </div>
+
+        <p class="product-description">
+          {{ product.description }}
+        </p>
+
+        <div class="purchase-actions">
+          <div class="quantity-selector">
+            <button (click)="decrementQuantity()" class="qty-btn"><i class="fa-solid fa-minus"></i></button>
+            <input type="number" [(ngModel)]="quantity" class="qty-input" readonly />
+            <button (click)="incrementQuantity()" class="qty-btn"><i class="fa-solid fa-plus"></i></button>
+          </div>
+
+          <button class="add-to-cart-btn" (click)="addToCart()">
+            <i class="fa-solid fa-shopping-bag"></i>
+            Add to Cart
+          </button>
+        </div>
+
+        <div class="product-features">
+          <div class="feature-item">
+            <i class="fa-solid fa-truck-fast"></i>
+            <div>
+              <strong>Free Shipping</strong>
+              <p>On orders above ₹999</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <i class="fa-solid fa-rotate-left"></i>
+            <div>
+              <strong>Easy Returns</strong>
+              <p>7-day return policy</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <i class="fa-solid fa-shield-halved"></i>
+            <div>
+              <strong>100% Authentic</strong>
+              <p>Directly from artisans</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="loading-state" *ngIf="loading">
+  <div class="spinner"></div>
+</div>

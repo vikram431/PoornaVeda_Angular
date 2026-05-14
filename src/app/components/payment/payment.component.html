@@ -1,0 +1,53 @@
+<div class="card">
+  <h3>Delivery Address</h3>
+
+  <div *ngIf="addresses && addresses.length > 0;">
+
+    <div *ngFor="let addr of addresses" 
+         class="address-box"
+         [class.active]="addr === selectedAddress"
+         (click)="selectAddress(addr)">
+
+      <p><strong>{{addr.name}}</strong> ({{addr.mobile}})</p>
+      <p>{{addr.addressLine}}, {{addr.city}} - {{addr.pincode}}</p>
+
+    </div>
+
+    <!-- Add More Address Button -->
+    <button class="add-btn" (click)="showAddressForm = true">
+      + Add New Address
+    </button>
+
+  </div>
+
+  <!-- ❌ No address -->
+  <!-- <ng-template #noAddress>
+    <button class="add-btn" (click)="showAddressForm = true">
+      Add Address
+    </button>
+  </ng-template> -->
+
+  <!-- 🧾 Address Form -->
+<div *ngIf="showAddressForm" class="address-form" [formGroup]="newAddress">
+
+  <div class="row">
+    <input formControlName="name" placeholder="Full Name">
+    <input formControlName="mobile" placeholder="Mobile Number">
+  </div>
+
+  <div class="row">
+    <input formControlName="city" placeholder="City">
+    <input formControlName="pincode" placeholder="Pincode">
+  </div>
+
+  <div class="row">
+    <textarea class="full-width"
+           formControlName="addressLine"
+           placeholder="Address"></textarea>
+  </div>
+
+  <button (click)="addAddress()">Save Address</button>
+
+</div>
+
+</div>

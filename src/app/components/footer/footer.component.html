@@ -1,61 +1,77 @@
 <footer class="footer">
-  <div class="container">
-    <div class="grid">
-      
-      <!-- Brand -->
-      <div class="brand">
-        <img [src]="logoIcon" alt="PoornaVeda" class="logo" />
-        <p class="desc">
-          Celebrating India's timeless wisdom through authentic, handcrafted products 
+  <div class="container footer-container">
+    <div class="footer-grid">
+      <!-- Brand & Newsletter -->
+      <div class="footer-section brand-newsletter">
+        <img src="/logo-full.png" alt="PoornaVeda" class="footer-logo" />
+        <p class="footer-desc">
+          Celebrating India's timeless wisdom through authentic, handcrafted products
           that bring wholeness to modern life.
         </p>
-        <div class="social">
-          <a *ngFor="let link of socialLinks" [href]="link.url" class="social-icon">
-            <i [ngClass]="{
-              'fab fa-facebook-f': link.icon === 'facebook',
-              'fab fa-instagram': link.icon === 'instagram',
-              'fab fa-twitter': link.icon === 'twitter'
-            }"></i>
-          </a>
+        <div class="newsletter-box">
+          <h4>Join Our Journey</h4>
+          <div class="newsletter-form">
+            <input type="email" placeholder="Enter your email" />
+            <button class="primary-btn">Subscribe</button>
+          </div>
         </div>
       </div>
 
-      <!-- Explore -->
-      <div>
-        <h3 class="heading">Explore</h3>
-        <ul class="link-list">
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Our Products</a></li>
-          <li><a href="#">Artisan Stories</a></li>
-          <li><a href="#">Blog</a></li>
+      <!-- Quick Links -->
+      <div class="footer-section">
+        <h3 class="footer-heading">Shop</h3>
+        <ul class="footer-links">
+          <li><a (click)="navigate('products')">All Products</a></li>
+          <li><a (click)="navigate('products')">Sacred Offerings</a></li>
+          <li><a (click)="navigate('products')">Artisanal Decor</a></li>
+          <li><a (click)="navigate('products')">Natural Wellness</a></li>
         </ul>
       </div>
 
-      <!-- Customer Care -->
-      <div>
-        <h3 class="heading">Customer Care</h3>
-        <ul class="link-list">
+      <!-- Support -->
+      <div class="footer-section">
+        <h3 class="footer-heading">Support</h3>
+        <ul class="footer-links">
           <li><a (click)="navigate('contact')">Contact Us</a></li>
-          <li><a (click)="navigate('')">Shipping Info</a></li>
-          <li><a (click)="navigate('')">Returns</a></li>
-          <li><a (click)="navigate('')">FAQ</a></li>
+          <li><a (click)="navigate('')">Shipping & Delivery</a></li>
+          <li><a (click)="navigate('')">Returns & Exchanges</a></li>
+          <li><a (click)="navigate('')">FAQs</a></li>
         </ul>
       </div>
 
-      <!-- Contact -->
-      <div>
-        <h3 class="heading">Connect</h3>
-        <ul class="contact-list">
-          <li><i class="fas fa-envelope"></i> vikram.kumar&#64;poornaveda.com</li>
-          <li><i class="fas fa-phone"></i> +91 8395994937</li>
-          <li><i class="fas fa-map-marker-alt"></i> Noida, Uttar Pradesh, India</li>
-        </ul>
+      <!-- Contact Info -->
+      <div class="footer-section">
+        <h3 class="footer-heading">Connect</h3>
+        <div class="contact-info">
+          <a href="mailto:vikram.kumar&#64;poornaveda.com" class="contact-item">
+            <i class="fa-solid fa-envelope"></i>
+            vikram.kumar&#64;poornaveda.com
+          </a>
+          <a href="tel:+918395994937" class="contact-item">
+            <i class="fa-solid fa-phone"></i>
+            +91 8395994937
+          </a>
+          <div class="contact-item">
+            <i class="fa-solid fa-location-dot"></i>
+            Noida, Uttar Pradesh, India
+          </div>
+        </div>
+        <div class="footer-social">
+          <a href="#" class="social-link"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="social-link"><i class="fa-brands fa-facebook"></i></a>
+          <a href="#" class="social-link"><i class="fa-brands fa-youtube"></i></a>
+        </div>
       </div>
-
     </div>
 
-    <div class="bottom-text">
-      <p>© 2024 PoornaVeda. Celebrating India's Complete Wisdom. All rights reserved.</p>
+    <div class="footer-bottom">
+      <div class="copyright">
+        © 2024 PoornaVeda. All rights reserved.
+      </div>
+      <div class="footer-legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+      </div>
     </div>
   </div>
 </footer>

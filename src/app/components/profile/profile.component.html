@@ -1,71 +1,79 @@
-<app-navigation></app-navigation>
-<div class="profile-container">
-
-    <div class="profile-card">
-
-        <div class="profile-section"><!-- Header Section -->
-            <div class="profile-header">
-                <div class="avatar">
-                    {{ user?.name?.charAt(0) }}
-                </div>
-
-                <div class="user-info">
-                    <h2>{{ user?.name }}</h2>
-                    <p>{{ user?.emailId }}</p>
-                </div>
-            </div>
-            <div>
-                <div>
-                    <button class="btn-secondary" (click)="changePassword()">
-                        Edit Profile
-                    </button>
-                </div>
-            </div>
-            
-        </div>
-         <hr>
-        
-
-        <!-- Personal Details -->
-         <h3>Personal Details</h3>
-        <div class="section">
-            
-
-            <div class="form-group">
-                <label>Full Name</label>
-                <input type="text" [(ngModel)]="user.name" disabled />
-            </div>
-
-            <div class="form-group">
-                <label>Email</label>
-                <input type="email" [(ngModel)]="user.emailId" disabled />
-            </div>
-
-            <!-- <button class="btn-primary" (click)="updateProfile()">
-        Update Profile
-      </button> -->
+<div class="profile-page">
+  <div class="container">
+    <div class="profile-layout">
+      <!-- Sidebar / Summary -->
+      <aside class="profile-sidebar">
+        <div class="user-card glass">
+          <div class="avatar-large">
+            {{ user?.name?.charAt(0) || 'U' }}
+          </div>
+          <div class="user-basic-info">
+            <h2>{{ user?.name }}</h2>
+            <p>{{ user?.emailId }}</p>
+          </div>
+          <div class="member-since">
+            Member since Oct 2023
+          </div>
         </div>
 
-        <!-- Change Password -->
-         <h3>Change Password</h3>
-        <div class="section">
-            
+        <nav class="side-nav">
+          <a class="side-nav-link active">
+            <i class="fa-solid fa-user"></i>
+            Personal Details
+          </a>
+          <a class="side-nav-link">
+            <i class="fa-solid fa-box"></i>
+            My Orders
+          </a>
+          <a class="side-nav-link">
+            <i class="fa-solid fa-location-dot"></i>
+            Addresses
+          </a>
+          <button class="logout-btn" (click)="logout()">
+            <i class="fa-solid fa-right-from-bracket"></i>
+            Sign Out
+          </button>
+        </nav>
+      </aside>
 
-            <div class="form-group">
-                <label>New Password</label>
-                <input type="password" [(ngModel)]="newPassword"  />
+      <!-- Main Content -->
+      <main class="profile-content">
+        <section class="profile-section-card">
+          <div class="section-header">
+            <h3>Personal Details</h3>
+            <button class="edit-btn">Edit Details</button>
+          </div>
+          
+          <div class="details-grid">
+            <div class="detail-item">
+              <label>Full Name</label>
+              <div class="detail-value">{{ user?.name }}</div>
             </div>
+            <div class="detail-item">
+              <label>Email Address</label>
+              <div class="detail-value">{{ user?.emailId }}</div>
+            </div>
+            <div class="detail-item">
+              <label>Phone Number</label>
+              <div class="detail-value">+91 9876543210</div>
+            </div>
+          </div>
+        </section>
 
-
-        </div>
-
-        <!-- Logout -->
-        <div class="logout-section">
-            <button class="btn-logout" (click)="logout()">
-                Sign Out
-            </button>
-        </div>
-
+        <section class="profile-section-card">
+          <div class="section-header">
+            <h3>Security</h3>
+          </div>
+          <div class="form-group">
+            <label>Update Password</label>
+            <div class="password-input-wrapper">
+              <input type="password" [(ngModel)]="newPassword" placeholder="Enter new password" />
+              <button class="primary-btn sm" (click)="changePassword()">Update</button>
+            </div>
+            <p class="helper-text">Ensure your password is at least 8 characters long.</p>
+          </div>
+        </section>
+      </main>
     </div>
-
+  </div>
 </div>

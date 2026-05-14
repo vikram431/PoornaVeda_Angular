@@ -19,18 +19,11 @@ import { FeatureProductComponent } from '../feature-product/feature-product.comp
   standalone: true,
   imports: [
     CommonModule,
-    NavigationComponent,
-    RouterOutlet,
     HeroComponent,
-    // ProductsComponent,
     ValuesComponent,
     StoryComponent,
-    FooterComponent,
-    AnnouncementBarComponent,
-    // CartSheetComponent,
-    FeatureProductComponent
-    // FoodLabelComponent,
-    // FoodlabelBackComponent
+    FeatureProductComponent,
+    RouterOutlet
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
@@ -39,14 +32,14 @@ export class HomeComponent {
   // cartOpen = false;
   // cartItemsCount = 0; 
 
-// session = { userId: 1 }; 
+  // session = { userId: 1 }; 
 
-// onCartOpen() {
-//   this.cartOpen = true;
-// }
+  // onCartOpen() {
+  //   this.cartOpen = true;
+  // }
 
-// onCartClose() {
-//   this.cartOpen = false;
-// }
+  // onCartClose() {
+  //   this.cartOpen = false;
+  // }
 
 }

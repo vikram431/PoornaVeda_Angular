@@ -1,23 +1,24 @@
 <div class="product-card">
-  <div class="image-wrapper">
-    <img [src]="products.imageUrl" [alt]="products.ProductName" />
+  <div class="product-image-container" (click)="onProductClick()">
+    <img [src]="products.imageUrl" [alt]="products.ProductName" class="product-image" />
+    <div class="product-overlay">
+      <button class="quick-view-btn" (click)="$event.stopPropagation(); onProductClick()">
+        Quick View
+      </button>
+    </div>
   </div>
 
-  <div class="product-content">
-    <p class="category">{{ products.category }}</p>
-    <h3>{{ products.ProductName }}</h3>
-    <p class="description">{{ products.description }}</p>
-
-    <div class="bottom">
-      <span class="price">₹{{ products.price }}</span>
-      <button *ngIf ="!inCart" class="btn-outline" (click)="addToCart()">
-         <span class="material-icons">+</span>
-        Add
-      </button>
-      <button *ngIf="inCart"   class="btn-outline" (click)="updateQuantity(products.Id,products.quantity+1)">
-        <span class="material-icons">+</span>
-        Add
+  <div class="product-info">
+    <div class="product-category">{{ products.category }}</div>
+    <h3 class="product-name" (click)="onProductClick()">{{ products.ProductName }}</h3>
+    
+    <div class="product-footer">
+      <div class="product-price">₹{{ products.price }}</div>
+      <button class="add-to-cart-btn" (click)="addToCart()" [class.in-cart]="inCart">
+        <i class="fa-solid" [ngClass]="inCart ? 'fa-check' : 'fa-plus'"></i>
+        {{ inCart ? 'Added' : 'Add' }}
       </button>
     </div>
   </div>
 </div>
+

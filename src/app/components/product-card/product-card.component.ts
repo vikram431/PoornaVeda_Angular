@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { cartService } from '../cart-sheet/cart-sheet.service';
+import { Router } from '@angular/router';
+
 
 
 
@@ -28,8 +30,9 @@ export class ProductCardComponent {
   inCart = false;
   
   cartItems: any[] = [];
-  constructor(private cartService: cartService) {
+  constructor(private cartService: cartService, private router: Router) {
   }
+
 
   ngOnInit() {
 
@@ -52,13 +55,13 @@ export class ProductCardComponent {
 
 
   addToCart(): void {
-    // if (this.cartItems.length===0){
-    // this.cartService.loadCartFromServer();
-    // }
-    // const cartItem = this.cartItems.find(i => i.Id === this.products.Id);
     this.cartService.addToCart(this.products);
-    console.log(`${this.products.ProductName} added to cart`);
   }
+
+  onProductClick(): void {
+    this.router.navigate(['/products', this.products.Id]);
+  }
+
 
   updateQuantity(id: string, qty: number) {
     console.log('quantity updating')

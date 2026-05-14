@@ -1,45 +1,109 @@
-<div class="products-section">
-    <div class="form">
-        <div class="card">
-            <div [formGroup]="contactForm" class="card-content">
-                <div>
-                    <label class="block text-sm font-medium">Name</label>
-                    <input type="text" name="name" placeholder="Enter Name" formControlName="name" />
-                    <p class="error-text"
-                        *ngIf="contactForm.get('name')?.touched && contactForm.get('name')?.hasError('required') && contactForm.get('name')?.invalid">
-                        name is required.
-                    </p>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium">Email Id</label>
-                    <input type="email" name="email" placeholder="Enter Email" formControlName="email" />
-                    <p class="error-text"
-                        *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.hasError('required') && contactForm.get('email')?.invalid">
-                        Email is required.
-                    </p>
-
-                </div>
-                <div>
-                    <label class="block text-sm font-medium">Phone Number</label>
-                    <input type="number" name="phone" placeholder="Enter phone" formControlName="phone" />
-                    <p class="error-text"
-                        *ngIf="contactForm.get('phone')?.touched && contactForm.get('phone')?.hasError('required') && contactForm.get('phone')?.invalid">
-                        Phone Number is required.
-                    </p>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium">Comment</label>
-                    <textarea type="text" rows="4" name="comment" placeholder="Enter comment"
-                        formControlName="comment"></textarea>
-
-
-                </div>
-                <div class="btn-class">
-                <button>Submit</button>
-            </div>
-
-            </div>
-            
-        </div>
+<div class="contact-page">
+  <div class="contact-hero">
+    <div class="container">
+      <h1>Hello. How can we help you?</h1>
+      <p>Find solutions, track orders, or get in touch with our team.</p>
     </div>
+  </div>
+
+  <div class="container">
+    <!-- Quick Help Topics -->
+    <div class="help-topics">
+      <div class="topic-card">
+        <i class="fa-solid fa-box"></i>
+        <h3>Your Orders</h3>
+        <p>Track, return, or buy things again</p>
+      </div>
+      <div class="topic-card">
+        <i class="fa-solid fa-rotate-left"></i>
+        <h3>Returns & Refunds</h3>
+        <p>Return or exchange items</p>
+      </div>
+      <div class="topic-card">
+        <i class="fa-solid fa-credit-card"></i>
+        <h3>Payments</h3>
+        <p>Manage payment methods</p>
+      </div>
+      <div class="topic-card">
+        <i class="fa-solid fa-user"></i>
+        <h3>Account Settings</h3>
+        <p>Change email or password</p>
+      </div>
+    </div>
+
+    <div class="contact-grid">
+      <!-- Contact Form -->
+      <div class="contact-form-section card">
+        <h2>Send us a Message</h2>
+        <p>We'll get back to you as soon as possible.</p>
+
+        <form [formGroup]="contactForm" class="contact-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" placeholder="John Doe" formControlName="name" />
+              <div class="error-msg" *ngIf="contactForm.get('name')?.touched && contactForm.get('name')?.invalid">
+                Name is required
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Email Address</label>
+              <input type="email" placeholder="john@example.com" formControlName="email" />
+              <div class="error-msg" *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.invalid">
+                Valid email is required
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" placeholder="+91 00000 00000" formControlName="phone" />
+            <div class="error-msg" *ngIf="contactForm.get('phone')?.touched && contactForm.get('phone')?.invalid">
+              10-digit phone number is required
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>How can we help?</label>
+            <textarea rows="5" placeholder="Tell us more about your inquiry..." formControlName="comment"></textarea>
+          </div>
+
+          <button class="submit-btn primary-btn" [disabled]="contactForm.invalid">
+            Send Message
+            <i class="fa-solid fa-paper-plane"></i>
+          </button>
+        </form>
+      </div>
+
+      <!-- Contact Info & CTA -->
+      <div class="contact-sidebar">
+        <div class="contact-method card">
+          <i class="fa-solid fa-comments"></i>
+          <div class="method-info">
+            <h3>Live Chat</h3>
+            <p>Our average response time is 5 minutes.</p>
+            <button class="secondary-btn sm">Start Chat</button>
+          </div>
+        </div>
+
+        <div class="contact-method card">
+          <i class="fa-solid fa-phone"></i>
+          <div class="method-info">
+            <h3>Phone Support</h3>
+            <p>Available Mon-Fri, 9am - 6pm IST.</p>
+            <a href="tel:+918395994937" class="phone-link">+91 8395994937</a>
+          </div>
+        </div>
+
+        <div class="contact-method card">
+          <i class="fa-solid fa-envelope"></i>
+          <div class="method-info">
+            <h3>Email Directly</h3>
+            <p>For complex inquiries or feedback.</p>
+            <a href="mailto:support&#64;poornaveda.com" class="email-link">support&#64;oornaveda.com</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

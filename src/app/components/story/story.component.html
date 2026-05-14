@@ -1,53 +1,65 @@
 <section class="story-section">
   <div class="container">
-    <div class="content-wrapper">
-      
-      <div class="header">
-        <img 
-          [src]="logoIcon" 
-          alt="PoornaVeda Icon" 
-          class="logo-icon"
-        />
-        <h2 class="title">
-          The <span class="highlight-primary">PoornaVeda</span> Philosophy
-        </h2>
+    <div class="story-layout">
+      <!-- Image Side -->
+      <div class="story-media">
+        <div class="image-stack">
+          <div class="stack-bg"></div>
+          <img 
+            src="assets/philosophy-story.png" 
+            alt="PoornaVeda Philosophy" 
+            class="main-story-img"
+          />
+          <div class="floating-quote">
+            <i class="fa-solid fa-quote-left"></i>
+            <p>Reviving the soulful traditions of India for a modern world.</p>
+          </div>
+        </div>
       </div>
 
-      <div class="text-content">
-        <p class="intro">
-          <span class="highlight-primary">Poorna</span> means complete and wholesome. 
-          <span class="highlight-accent">Veda</span> means knowledge and sacred understanding.
-        </p>
+      <!-- Content Side -->
+      <div class="story-info">
+        <div class="pre-title">Our Heritage</div>
+        <h2 class="main-title">
+          The <span class="highlight">PoornaVeda</span> Philosophy
+        </h2>
+        
+        <div class="etymology">
+          <div class="term"><strong>Poorna</strong> <span>Wholesome</span></div>
+          <div class="term"><strong>Veda</strong> <span>Knowledge</span></div>
+        </div>
 
-        <div class="card">
+        <div class="story-text">
           <p>
             PoornaVeda is more than a brand — it is a celebration of India's timeless wisdom. 
             We bring together the purest, most authentic elements of Indian tradition, from handcrafted 
             foods made with natural ingredients to artisanal creations inspired by our heritage.
           </p>
 
-          <p>
-            Each PoornaVeda product is a reflection of India's holistic living — combining taste, 
-            health, and culture in perfect harmony. We believe that true richness lies in purity 
-            and authenticity.
-          </p>
+          <div class="value-points">
+            <div class="point">
+              <div class="point-icon"><i class="fa-solid fa-seedling"></i></div>
+              <div class="point-content">
+                <strong>Nature First</strong>
+                <p>Traditional recipes using only pure, sustainable practices.</p>
+              </div>
+            </div>
+            <div class="point">
+              <div class="point-icon"><i class="fa-solid fa-heart"></i></div>
+              <div class="point-content">
+                <strong>Authentic Love</strong>
+                <p>Every item carries the essence of complete Indian wisdom.</p>
+              </div>
+            </div>
+          </div>
 
-          <p>
-            Our offerings are made using traditional recipes and sustainable practices, connecting 
-            ancient Indian values with modern lifestyles. Whether it's a jar of Dry Fruit Ladoo 
-            roasted in pure cow milk, a handwoven cloth from rural artisans, or natural home essentials, 
-            every item carries the essence of 
-            <span class="highlight-primary bold">"complete Indian wisdom"</span>.
-          </p>
+          <div class="story-accent-text">
+            Every item is a reflection of India's holistic living — combining taste, health, and culture.
+          </div>
         </div>
 
-        <div class="footer-text">
-          <p class="footer-quote">
-            We are a movement to revive India's soulful traditions
-          </p>
-        </div>
+        <button class="primary-btn sm" (click)="navigate('/about')">Discover More</button>
       </div>
-
     </div>
   </div>
 </section>

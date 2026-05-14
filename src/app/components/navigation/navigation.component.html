@@ -1,65 +1,60 @@
-<nav class="nav-container">
-  <div class="nav-inner">
-    <!-- Logo -->
-
-    <!-- Mobile Menu Drawer -->
-    <!-- Mobile Menu -->
-    <button *ngIf="mobileMenuOpen" class="icon-btn md:hidden" (click)="toggleMenu()">
+<nav class="nav-container glass">
+  <div class="nav-inner container">
+    <!-- Left: Mobile Menu Trigger -->
+    <button class="mobile-menu-btn md:hidden" (click)="toggleMenu()" aria-label="Toggle menu">
       <i class="fa-solid" [ngClass]="mobileMenuOpen ? 'fa-xmark' : 'fa-bars'"></i>
     </button>
-    <div *ngIf="mobileMenuOpen" class="mobile-menu">
+
+    <!-- Center: Logo -->
+    <div class="logo-container" (click)="navigate('/')">
+      <img src="/logo-full.png" alt="PoornaVeda" class="logo" />
+    </div>
+
+    <!-- Center/Left: Desktop Links -->
+    <div class="nav-links hidden md:flex">
+      <a (click)="navigate('/')" class="nav-link" [ngClass]="{ 'active': activeRoute === '/' }">Home</a>
+      <a (click)="navigate('/products')" class="nav-link" [ngClass]="{ 'active': activeRoute === '/products' }">Products</a>
+      <a (click)="navigate('/about')" class="nav-link" [ngClass]="{ 'active': activeRoute === '/about' }">Our Story</a>
+      <a (click)="navigate('/contact')" class="nav-link" [ngClass]="{ 'active': activeRoute === '/contact' }">Contact</a>
+    </div>
+
+    <!-- Right: Actions -->
+    <div class="nav-actions">
+      <button class="icon-btn search-btn" (click)="onSearchClick()" aria-label="Search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </button>
+
+
+      <a (click)="onProfileClick()" class="profile-link" *ngIf="isLoggedIn; else loginButton">
+        <i class="fa-regular fa-user"></i>
+        <span class="hidden sm:inline">Profile</span>
+      </a>
+
+      <button class="icon-btn cart-btn" (click)="onCartClick()" aria-label="Cart">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <span *ngIf="cartItemsCount > 0" class="cart-badge">
+          {{ cartItemsCount }}
+        </span>
+      </button>
+    </div>
+
+    <ng-template #loginButton>
+      <button class="btn-primary sign-in-btn" (click)="navigate('/auth')">Sign In</button>
+    </ng-template>
+  </div>
+
+  <!-- Mobile Menu Overlay -->
+  <div *ngIf="mobileMenuOpen" class="mobile-menu-overlay" (click)="toggleMenu()"></div>
+  <div class="mobile-menu-drawer" [class.open]="mobileMenuOpen">
+    <div class="mobile-menu-header">
+      <img src="/logo-full.png" alt="PoornaVeda" class="h-8" />
+      <button (click)="toggleMenu()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="mobile-menu-links">
       <a (click)="navigate('/')" class="mobile-link">Home</a>
       <a (click)="navigate('/products')" class="mobile-link">Products</a>
       <a (click)="navigate('/about')" class="mobile-link">Our Story</a>
-    </div>
-
-    <div class="flex items-center gap-2 cursor-pointer" (click)="navigate('/')">
-      <img src="/logo-full.png" alt="PoornaVeda" class="h-10 w-10" />
-      <!-- <span class="brand-name hidden sm:inline">PoornaVeda</span> -->
-    </div>
-
-    <!-- Desktop Links -->
-    <div class="hidden md:flex items-center gap-6">
-      <a (click)="navigate('/')" class="nav-link" [ngClass]="{ 'active': activeRoute === '/' }" >Home</a>
-      <a (click)="navigate('/products')" class="nav-link" [ngClass]="{ 'active': activeRoute === '/products' }">Product</a>
-      <a (click)="navigate('/about')" class="nav-link" [ngClass]="{ 'active': activeRoute === '/about' }">Our Story</a>
-    </div>
-
-
-    <!-- Right Side -->
-    <div class="items-center gap-4">
-      <!-- Cart -->
-      <div>
-
-        <a (click)="onProfileClick()" *ngIf="isLoggedIn; else loginButton">
-          <i class="fa-regular fa-user mr-2"></i> Profile
-        </a>
-
-        <button class="icon-btn" (click)="onCartClick()">
-          <i class="fa-solid fa-shopping-cart"></i>
-          <span *ngIf="cartItemsCount > 0" class="cart-badge">
-            {{ cartItemsCount }}
-          </span>
-        </button>
-
-      </div>
-
-      <!-- <div *ngIf="isLoggedIn; else loginButton">
-        
-      </div> -->
-      <!-- <div>
-        <a (click)="signOut()">
-          <i class="fa-solid fa-right-from-bracket mr-2"></i> Sign Out
-        </a>
-      </div> -->
-      
-
-      <ng-template #loginButton>
-        <button class="btn-primary" (click)="navigate('/auth')">Sign In</button>
-      </ng-template>
-
+      <a (click)="navigate('/contact')" class="mobile-link">Contact</a>
     </div>
   </div>
-
-
-</nav>
+</nav>

@@ -18,7 +18,7 @@ interface Product {
 @Component({
   selector: 'app-products',
   standalone: true,
-  imports: [CommonModule, ProductCardComponent, NavigationComponent],
+  imports: [CommonModule, ProductCardComponent],
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
@@ -35,7 +35,15 @@ export class ProductsComponent {
       this.products=res;
       console.log(this.products)
     })
-  };
+  }
+
+  refreshProducts() {
+
+    this.productService.getAllProducts().subscribe(res => {
+      this.products = res;
+    });
+  }
+
 
   openCartSheet() {
     console.log('ajhd');

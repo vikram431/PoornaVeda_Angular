@@ -8,7 +8,7 @@ import { NavigationComponent } from '../navigation/navigation.component';
 @Component({
   standalone:true,
   selector: 'app-profile',
-  imports: [FormsModule,CommonModule,NavigationComponent],
+  imports: [FormsModule, CommonModule],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })

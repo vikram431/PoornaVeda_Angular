@@ -11,7 +11,7 @@ import { Route, Router } from '@angular/router';
 export class FooterComponent {
   logoIcon = '/logo-icon.png';
 
-  constructor(private router:Router){};
+  constructor(private router: Router) { };
 
   socialLinks = [
     { icon: 'facebook', url: '#' },
@@ -19,7 +19,7 @@ export class FooterComponent {
     { icon: 'twitter', url: '#' }
   ];
 
-  navigate(path: string){
+  navigate(path: string) {
     this.router.navigate([path]);
   }
 }

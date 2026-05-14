@@ -1,19 +1,116 @@
-/* You can add global styles to this file, and also import other style files */
-/* Reset default browser padding/margin */
+/* CSS Variables for Design System */
+:root {
+  --primary-green: #3B6B4B;
+  --primary-green-dark: #2d5239;
+  --accent-gold: #FF9933;
+  --bg-cream: #fdfbf7;
+  --text-deep: #1a1a1a;
+  --text-muted: #666666;
+  --border-light: #e5e5e5;
+  --glass-bg: rgba(255, 255, 255, 0.8);
+  --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 html, body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Outfit', sans-serif;
+  background-color: var(--bg-cream);
+  color: var(--text-deep);
+  scroll-behavior: smooth;
 }
 
+* {
+  box-sizing: inherit;
+}
 
 button {
-  /* width: 100%; */
-  padding: 0.75rem;
-  font-size: 1.1rem;
-  border-radius: 6px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
   border: none;
   color: white;
   cursor: pointer;
-  background: linear-gradient(90deg, #FF9933, #3B6B4B);
+  background: var(--primary-green);
+  transition: var(--transition);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
 }
+
+button:hover {
+  background: var(--primary-green-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+button.secondary {
+  background: transparent;
+  border: 2px solid var(--primary-green);
+  color: var(--primary-green);
+}
+
+button.secondary:hover {
+  background: var(--primary-green);
+  color: white;
+}
+
+input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  font-size: 1rem;
+  background: white;
+  transition: var(--transition);
+}
+
+input:focus {
+  border-color: var(--primary-green);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 107, 75, 0.1);
+}
+
+/* Utilities */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.main-content {
+  min-height: 60vh;
+}
+
+/* Responsive Utilities */
+.hidden {
+  display: none !important;
+}
+
+@media (min-width: 769px) {
+  .md\:hidden {
+    display: none !important;
+  }
+  .md\:flex {
+    display: flex !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .sm\:inline {
+    display: none !important;
+  }
+}
+
+

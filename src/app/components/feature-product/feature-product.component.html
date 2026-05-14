@@ -1,14 +1,46 @@
-<p>Feature product</p>
-<!-- <app-product-card
-    *ngFor="let p of products"
-    [products]="p">
-</app-product-card> -->
-<div class="products-grid">
-  <app-product-card
-    *ngFor="let p of products"
-    [products]="p">
-  </app-product-card>
-</div>
-<div class="text-center">
-      <button (click)="navigate('/products')" class="btn-primary">View All Products</button>
+<section class="featured-products">
+  <div class="container">
+    <div class="section-header">
+      <div class="header-pretitle">Selected for You</div>
+      <h2 class="section-title">Sacred <span class="text-accent">Offerings</span></h2>
+      <p class="section-subtitle">Handpicked treasures for your spiritual and wellness journey. Handcrafted with purity, delivered with soul.</p>
+      
+      <div class="category-chips">
+        <span class="chip active">All Offerings</span>
+        <span class="chip">Traditional Foods</span>
+        <span class="chip">Sacred Herbs</span>
+        <span class="chip">Artisanal Decor</span>
+      </div>
     </div>
+
+
+    <div class="products-grid" *ngIf="products && products.length > 0; else noFeatures">
+      <app-product-card
+        *ngFor="let p of products"
+        [products]="p">
+      </app-product-card>
+    </div>
+
+    <ng-template #noFeatures>
+      <div class="empty-features">
+        <div class="feature-skeleton-grid">
+          <div class="skeleton-card" *ngFor="let i of [1,2,3,4]">
+            <div class="skeleton-img"></div>
+            <div class="skeleton-text"></div>
+            <div class="skeleton-text short"></div>
+          </div>
+        </div>
+        <p class="no-data-msg">Discovering new treasures for you... Please check back soon!</p>
+      </div>
+    </ng-template>
+
+
+    <div class="view-all-container">
+      <button (click)="navigate('/products')" class="secondary-btn">
+        View All Products
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+  </div>
+</section>
+

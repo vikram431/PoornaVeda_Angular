@@ -1,0 +1,66 @@
+<div class="search-overlay" *ngIf="isOpen" (click)="close()">
+  <div class="search-modal" (click)="$event.stopPropagation()">
+    <div class="search-header">
+      <div class="search-input-wrapper">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input 
+          id="search-input"
+          type="text" 
+          [(ngModel)]="searchQuery" 
+          (ngModelChange)="onQueryChange()"
+          placeholder="Search for products, categories..."
+          autocomplete="off"
+        />
+        <button class="clear-btn" *ngIf="searchQuery" (click)="searchQuery = ''; results = []">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <button class="close-modal-btn" (click)="close()">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+
+    <div class="search-results-container" *ngIf="searchQuery.length >= 2">
+      <div class="loading-results" *ngIf="loading">
+        <div class="spinner"></div>
+        Searching...
+      </div>
+
+      <div class="results-list" *ngIf="!loading && results.length > 0">
+        <div class="results-header">Products</div>
+        <a 
+          *ngFor="let product of results" 
+          [routerLink]="['/products', product.Id]" 
+          (click)="onResultClick()"
+          class="result-item"
+        >
+          <img [src]="product.imageUrl" [alt]="product.ProductName" class="result-img" />
+          <div class="result-info">
+            <span class="result-name">{{ product.ProductName }}</span>
+            <span class="result-category">{{ product.category }}</span>
+          </div>
+          <span class="result-price">₹{{ product.price }}</span>
+        </a>
+        <div class="view-all-results">
+          <a routerLink="/products" (click)="close()">View all results</a>
+        </div>
+      </div>
+
+      <div class="no-results" *ngIf="!loading && results.length === 0 && searchQuery.length >= 2">
+        No products found for "{{ searchQuery }}"
+      </div>
+    </div>
+
+    <div class="search-suggestions" *ngIf="searchQuery.length < 2">
+      <div class="suggestion-section">
+        <span class="suggestion-title">Popular Searches</span>
+        <div class="suggestion-tags">
+          <span (click)="searchQuery = 'Ladoo'; onQueryChange()">Ladoo</span>
+          <span (click)="searchQuery = 'Organic'; onQueryChange()">Organic</span>
+          <span (click)="searchQuery = 'Ghee'; onQueryChange()">Ghee</span>
+          <span (click)="searchQuery = 'Handcrafted'; onQueryChange()">Handcrafted</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

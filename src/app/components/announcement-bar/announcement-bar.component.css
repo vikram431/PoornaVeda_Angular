@@ -1,31 +1,34 @@
 .announcement-bar {
-  background: linear-gradient(90deg, #ff9933, #6b2e2e);
-  color: #ffffff;
-  padding: 8px 16px;
-  position: relative;
+  background: var(--primary-green);
+  color: white;
+  padding: 0.5rem 1.5rem;
   text-align: center;
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 500;
+  position: relative;
+  z-index: 1001;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .announcement-text {
-  width: 100%;
+  flex-grow: 1;
 }
 
 .close-btn {
-  position: absolute;
-  right: 16px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: transparent;
+  background: none;
   border: none;
-  font-size: 16px;
-  cursor: pointer;
   color: white;
-  opacity: 0.9;
-  transition: opacity 0.2s ease;
+  cursor: pointer;
+  padding: 4px;
+  font-size: 0.75rem;
+  opacity: 0.7;
+  transition: var(--transition);
+  position: absolute;
+  right: 1rem;
 }
 
 .close-btn:hover {
-  opacity: 0.6;
+  opacity: 1;
 }

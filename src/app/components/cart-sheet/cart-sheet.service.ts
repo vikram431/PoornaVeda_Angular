@@ -42,14 +42,13 @@ export class cartService {
     });
   }
 
-  addToCart(product: any) {
-
+  addToCart(product: any, quantity: number = 1) {
     console.log('cartItemsSubject', this.cartItemsSubject.value[0]);
     const items = [...this.cartItemsSubject.value]
     let existing = items.find(i => i.Id === product.Id)
 
     if (existing) {
-      existing.quantity++;
+      existing.quantity += quantity;
     } else {
       existing = {
         Id: product.Id,
@@ -58,7 +57,7 @@ export class cartService {
         description: product.description,
         price: product.price,
         imageUrl: product.imageUrl,
-        quantity: 1,
+        quantity: quantity,
         stockQuantity: product.stockQuantity,
         cartItemId: '',
         cartId: '',
@@ -66,6 +65,7 @@ export class cartService {
       };
       items.push(existing);
     }
+
 
     console.log('items ', items);
 
