@@ -3,11 +3,13 @@
     <div class="footer-grid">
       <!-- Brand & Newsletter -->
       <div class="footer-section brand-newsletter">
-        <img src="/logo-full.png" alt="PoornaVeda" class="footer-logo" />
-        <p class="footer-desc">
-          Celebrating India's timeless wisdom through authentic, handcrafted products
-          that bring wholeness to modern life.
-        </p>
+        <div class="logo-desc-row">
+          <img src="assets/Full-Logo-White.png" alt="PoornaVeda" class="footer-logo" />
+          <p class="footer-desc">
+            Celebrating India's timeless wisdom through authentic, handcrafted products
+            that bring wholeness to modern life.
+          </p>
+        </div>
         <div class="newsletter-box">
           <h4>Join Our Journey</h4>
           <div class="newsletter-form">
@@ -21,10 +23,10 @@
       <div class="footer-section">
         <h3 class="footer-heading">Shop</h3>
         <ul class="footer-links">
-          <li><a (click)="navigate('products')">All Products</a></li>
-          <li><a (click)="navigate('products')">Sacred Offerings</a></li>
-          <li><a (click)="navigate('products')">Artisanal Decor</a></li>
-          <li><a (click)="navigate('products')">Natural Wellness</a></li>
+          <li><a (click)="navigate('/about')">Our Story</a></li>
+          <li><a (click)="navigate('/blog')">Vedic Blog</a></li>
+          <li><a (click)="navigate('/products')">All Collections</a></li>
+          <li><a (click)="navigate('contact')">Find a Store</a></li>
         </ul>
       </div>
 
@@ -33,8 +35,8 @@
         <h3 class="footer-heading">Support</h3>
         <ul class="footer-links">
           <li><a (click)="navigate('contact')">Contact Us</a></li>
-          <li><a (click)="navigate('')">Shipping & Delivery</a></li>
-          <li><a (click)="navigate('')">Returns & Exchanges</a></li>
+          <li><a (click)="navigate('/shipping-delivery')">Shipping & Delivery</a></li>
+          <li><a (click)="navigate('/refund-policy')">Returns & Exchanges</a></li>
           <li><a (click)="navigate('')">FAQs</a></li>
         </ul>
       </div>
@@ -57,9 +59,14 @@
           </div>
         </div>
         <div class="footer-social">
-          <a href="#" class="social-link"><i class="fa-brands fa-instagram"></i></a>
-          <a href="#" class="social-link"><i class="fa-brands fa-facebook"></i></a>
-          <a href="#" class="social-link"><i class="fa-brands fa-youtube"></i></a>
+          <a href="https://www.instagram.com/poornavedaofficial/?igsh=MWhtNWUzbjB6cXVtZw%3D%3D#" class="social-link"><i
+              class="fa-brands fa-instagram"></i></a>
+          <a href="https://www.facebook.com/share/18WQv9Eo3U/" class="social-link"><i
+              class="fa-brands fa-facebook"></i></a>
+          <a href="https://www.youtube.com/@poornaVeda_Official" class="social-link"><i
+              class="fa-brands fa-youtube"></i></a>
+          <a href="https://www.linkedin.com/company/poornaveda/" class="social-link"><i
+              class="fa-brands fa-linkedin"></i></a>
         </div>
       </div>
     </div>
@@ -69,8 +76,9 @@
         © 2024 PoornaVeda. All rights reserved.
       </div>
       <div class="footer-legal">
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Service</a>
+        <a (click)="navigate('/privacy-policy')">Privacy Policy</a>
+        <a (click)="navigate('/terms-of-service')">Terms of Service</a>
+        <a (click)="navigate('/refund-policy')">Refund Policy</a>
       </div>
     </div>
   </div>

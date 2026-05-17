@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { Router, RouterOutlet } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from './auth.service';
 import { RegisterService } from './register.service';
 @Component({
   selector: 'app-auth',
-  imports: [CommonModule, RouterOutlet, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './auth.component.html',
   styleUrls: ['./auth.component.css']
 })
@@ -15,7 +15,13 @@ export class AuthComponent {
   loading = false;
   authForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private router: Router, private authService: AuthService, private registerService: RegisterService) {
+  constructor(
+    private fb: FormBuilder, 
+    private router: Router, 
+    private route: ActivatedRoute,
+    private authService: AuthService, 
+    private registerService: RegisterService
+  ) {
     this.authForm = this.fb.group({
       fullName: [''],
       email: ['', [Validators.required, Validators.email]],
@@ -30,16 +36,39 @@ export class AuthComponent {
     });
   }
 
-  toggleAuthMode(): void {
-    this.isLogin = !this.isLogin;
+  ngOnInit(): void {
+    // Check for mode in query params
+    this.route.queryParams.subscribe(params => {
+      if (params['mode'] === 'signup') {
+        this.isLogin = false;
+        this.updateFullNameValidator();
+      }
+    });
+  }
 
+  private updateFullNameValidator(): void {
     if (!this.isLogin) {
       this.authForm.get('fullName')?.setValidators([Validators.required]);
     } else {
       this.authForm.get('fullName')?.clearValidators();
     }
-
     this.authForm.get('fullName')?.updateValueAndValidity();
+  }
+
+  toggleAuthMode(): void {
+    this.isLogin = !this.isLogin;
+    this.updateFullNameValidator();
+    
+    // Update URL without reloading to reflect current mode (good for UX)
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { mode: this.isLogin ? 'login' : 'signup' },
+      queryParamsHandling: 'merge'
+    });
+  }
+
+  navigateHome(): void {
+    this.router.navigate(['/']);
   }
 
 

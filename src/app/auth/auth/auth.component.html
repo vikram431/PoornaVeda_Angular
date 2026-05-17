@@ -1,79 +1,118 @@
-<router-outlet></router-outlet>
+<div class="auth-viewport">
+  <!-- Subtle Background Image with Blur Overlay -->
+  <div class="auth-bg-overlay"></div>
 
-<div class="auth-wrapper gradient-earth">
-  <!-- <div style="width: 100%; ">
-    <img class="hero-image"  src="hero-image.jpg" />
-  </div> -->
-  
-  <div class="card">
-    <div class="card-header text-center space-y-2">
-      <img src="/logo-full.png" class="h-16 mx-auto" />
-      <h2 class="text-2xl font-bold card-title">
-        {{ isLogin ? 'Welcome back' : 'Create Account' }}
-      </h2>
-      <p class="text-gray-600 card-description">
-        {{ isLogin ? 'Sign in to your account' : 'Join us and explore Indian wisdom' }}
-      </p>
+  <button class="minimal-back-btn" (click)="navigateHome()">
+    <i class="fa-solid fa-arrow-left"></i>
+    <span>Back to Store</span>
+  </button>
+
+  <div class="auth-split-container">
+    <!-- Left: Branding & Content (Desktop only) -->
+    <div class="auth-brand-side">
+      <div class="brand-content animate-fade-in">
+        <div class="brand-tag">
+          <i class="fa-solid fa-seedling"></i>
+          Ancient Wisdom, Modern Living
+        </div>
+        <h1 class="brand-heading">PoornaVeda</h1>
+        <p class="brand-description">
+          Discover the pure essence of Indian heritage through our curated collection of wellness products.
+          From sacred foods to handcrafted textiles, we bring the wisdom of Vedas to your modern lifestyle.
+        </p>
+
+        <div class="brand-highlights">
+          <div class="highlight-item">
+            <div class="icon-box"><i class="fa-solid fa-certificate"></i></div>
+            <div class="text-box">
+              <span class="h-title">Authentic Purity</span>
+              <span class="h-desc">100% Lab tested and ethically sourced.</span>
+            </div>
+          </div>
+          <div class="highlight-item">
+            <div class="icon-box"><i class="fa-solid fa-hand-holding-heart"></i></div>
+            <div class="text-box">
+              <span class="h-title">Handcrafted with Love</span>
+              <span class="h-desc">Supporting local artisans and traditions.</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <form [formGroup]="authForm" (ngSubmit)="onSubmit()" class="card-content space-y-4">
-      <div *ngIf="!isLogin" class="space-y-1">
-        <label class="block text-sm font-medium">Full Name</label>
-
-        <input class="input" formControlName="fullName" placeholder="Enter your full name" />
-
-        <!-- ❗ ERROR MESSAGE -->
-        <p class="error-text"
-          *ngIf="authForm.get('fullName')?.touched && authForm.get('fullName')?.hasError('required')">
-          Full name is required.
-        </p>
-      </div>
-
-
-      <div>
-        <label class="block text-sm font-medium">Email</label>
-        <input type="email" class="input" formControlName="email" [ngClass]="{'input-error': authForm.get('email')?.invalid && authForm.get('email')?.touched}" placeholder="Enter your email" />
-
-        <!-- Error Messages -->
-        <div class="error-text" *ngIf="authForm.get('email')?.touched && authForm.get('email')?.invalid">
-          <p *ngIf="authForm.get('email')?.errors?.['required']">
-            Email is required.
+    <!-- Right: The Auth Card -->
+    <div class="auth-form-side">
+      <div class="auth-card glass-panel animate-scale-in">
+        <div class="auth-header">
+          <div class="logo-wrapper" (click)="navigateHome()">
+            <img src="/logo-full.png" alt="PoornaVeda" class="main-logo" />
+          </div>
+          <h2 class="auth-title">{{ isLogin ? 'Welcome Back' : 'Create Account' }}</h2>
+          <p class="auth-subtitle">
+            {{ isLogin ? 'Sign in to access your profile and orders.' : 'Join the PoornaVeda family today.' }}
           </p>
-          <p *ngIf="authForm.get('email')?.errors?.['email']">
-            Please enter a valid email address.
+        </div>
+
+        <form [formGroup]="authForm" (ngSubmit)="onSubmit()" class="modern-form">
+          <!-- Full Name (Registration only) -->
+          <div class="form-field" *ngIf="!isLogin">
+            <label class="field-label">Full Name</label>
+            <div class="field-input-group">
+              <i class="fa-regular fa-user"></i>
+              <input type="text" formControlName="fullName" placeholder="Full Name" class="field-input" />
+            </div>
+            <div class="field-error" *ngIf="authForm.get('fullName')?.touched && authForm.get('fullName')?.invalid">
+              Full name is required.
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="form-field">
+            <label class="field-label">Email Address</label>
+            <div class="field-input-group"
+              [class.has-error]="authForm.get('email')?.touched && authForm.get('email')?.invalid">
+              <i class="fa-regular fa-envelope"></i>
+              <input type="email" formControlName="email" placeholder="name@example.com" class="field-input" />
+            </div>
+            <div class="field-error" *ngIf="authForm.get('email')?.touched && authForm.get('email')?.invalid">
+              <span *ngIf="authForm.get('email')?.errors?.['required']">Email is required.</span>
+              <span *ngIf="authForm.get('email')?.errors?.['email']">Enter a valid email address.</span>
+            </div>
+          </div>
+
+          <!-- Password -->
+          <div class="form-field">
+            <div class="label-row">
+              <label class="field-label">Password</label>
+              <a href="javascript:void(0)" class="text-link sm" *ngIf="isLogin">Forgot?</a>
+            </div>
+            <div class="field-input-group"
+              [class.has-error]="authForm.get('password')?.touched && authForm.get('password')?.invalid">
+              <i class="fa-solid fa-lock"></i>
+              <input type="password" formControlName="password" placeholder="••••••••" class="field-input" />
+            </div>
+            <div class="field-error" *ngIf="authForm.get('password')?.touched && authForm.get('password')?.invalid">
+              <span *ngIf="authForm.get('password')?.errors?.['required']">Password is required.</span>
+              <span *ngIf="authForm.get('password')?.errors?.['minlength']">Min 6 characters.</span>
+              <span *ngIf="authForm.get('password')?.errors?.['pattern']">1 uppercase & 1 special char.</span>
+            </div>
+          </div>
+
+          <button class="primary-submit" type="submit" [disabled]="authForm.invalid || loading">
+            <span *ngIf="!loading">{{ isLogin ? 'Sign In' : 'Get Started' }}</span>
+            <div class="dot-spinner" *ngIf="loading"></div>
+          </button>
+        </form>
+
+        <div class="auth-footer">
+          <p class="footer-text">
+            {{ isLogin ? "New to PoornaVeda?" : "Already a member?" }}
+            <button type="button" class="text-link bold" (click)="toggleAuthMode()">
+              {{ isLogin ? 'Register now' : 'Sign in' }}
+            </button>
           </p>
         </div>
       </div>
-
-
-      <div>
-        <label class="block text-sm font-medium">Password</label>
-        <input class="input" formControlName="password" type="password" />
-
-        <div class="error-text" *ngIf="authForm.get('password')?.touched">
-          <span *ngIf="authForm.get('password')?.errors?.['required']">
-            Password is required.
-          </span>
-
-          <span *ngIf="authForm.get('password')?.errors?.['minlength']">
-            Password must be at least 6 characters.
-          </span>
-
-          <span *ngIf="authForm.get('password')?.errors?.['pattern']">
-            Must contain 1 uppercase letter & 1 special character.
-          </span>
-        </div>
-      </div>
-
-      <button class="btn gradient-sacred" type="submit" [disabled]="authForm.invalid || loading">
-        {{ loading ? 'Loading...' : (isLogin ? 'Sign In' : 'Sign Up') }}
-      </button>
-    </form>
-
-    <div class="text-sm text-center mt-4">
-      <button class="text-primary" (click)="toggleAuthMode()">
-        {{ isLogin ? "Don't have an account? Sign up" : "Already have an account? Sign in" }}
-      </button>
     </div>
   </div>
 </div>

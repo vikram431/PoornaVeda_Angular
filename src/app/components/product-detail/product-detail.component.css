@@ -251,6 +251,234 @@
   }
 }
 
+/* New Styles for Product Detail Page Enhancements */
+
+.product-subtitle {
+  font-size: 1.25rem;
+  color: var(--text-muted);
+  margin-top: -1rem;
+}
+
+.price-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.original-price {
+  font-size: 1.25rem;
+  color: #a0a0a0;
+  text-decoration: line-through;
+}
+
+.discount-tag {
+  background: #e1f5fe;
+  color: #0288d1;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+/* Tabs Styling */
+.pdp-tabs-section {
+  margin-top: 5rem;
+  border-top: 1px solid var(--border-light);
+  padding-top: 3rem;
+}
+
+.tabs-header {
+  display: flex;
+  gap: 3rem;
+  border-bottom: 1px solid var(--border-light);
+  margin-bottom: 3rem;
+}
+
+.tabs-header button {
+  background: none;
+  border: none;
+  padding: 1rem 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  position: relative;
+  transition: var(--transition);
+}
+
+.tabs-header button.active {
+  color: var(--primary-green);
+}
+
+.tabs-header button.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--primary-green);
+}
+
+.tab-content {
+  min-height: 300px;
+}
+
+.animate-fade {
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Description Tab */
+.description-content h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.details-list {
+  margin-top: 2rem;
+  max-width: 500px;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 0;
+  border-bottom: 1px solid #f8f9fa;
+}
+
+.detail-row .label {
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.detail-row .value.in-stock {
+  color: #10b981;
+  font-weight: 700;
+}
+
+/* Reviews Tab */
+.reviews-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--bg-cream);
+  padding: 2.5rem;
+  border-radius: 24px;
+  margin-bottom: 3rem;
+}
+
+.avg-rating {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.avg-rating .score {
+  font-size: 3rem;
+  font-weight: 800;
+  color: var(--text-deep);
+}
+
+.avg-rating .stars {
+  color: #fbbf24;
+  font-size: 1.25rem;
+}
+
+.avg-rating .count {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.reviews-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.review-item {
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.user-info {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  background: var(--primary-green);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.username {
+  display: block;
+  font-weight: 700;
+  color: var(--text-deep);
+}
+
+.date {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.review-header .stars {
+  color: #fbbf24;
+  font-size: 0.875rem;
+}
+
+.comment {
+  line-height: 1.6;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+/* Similar Products Section */
+.similar-products-section {
+  margin-top: 6rem;
+}
+
+.similar-products-section .section-header {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+
+.similar-products-section h2 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.similar-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+
+.primary-btn.sm {
+  padding: 0.75rem 1.5rem;
+  font-size: 0.875rem;
+}
+
 @media (max-width: 992px) {
   .pdp-grid {
     grid-template-columns: 1fr;
@@ -259,6 +487,36 @@
 
   .main-image-wrapper {
     position: static;
+  }
+
+  .similar-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .tabs-header {
+    gap: 1.5rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  
+  .tabs-header::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tabs-header button {
+    white-space: nowrap;
+  }
+
+  .reviews-summary {
+    flex-direction: column;
+    gap: 2rem;
+    text-align: center;
+  }
+
+  .similar-grid {
+    grid-template-columns: 1fr;
   }
 }
 

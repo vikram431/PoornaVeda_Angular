@@ -1,22 +1,32 @@
 <section class="featured-products">
   <div class="container">
     <div class="section-header">
-      <div class="header-pretitle">Selected for You</div>
-      <h2 class="section-title">Sacred <span class="text-accent">Offerings</span></h2>
-      <p class="section-subtitle">Handpicked treasures for your spiritual and wellness journey. Handcrafted with purity, delivered with soul.</p>
+      <div class="header-content">
+        <div class="pretitle-wrapper">
+          <span class="line"></span>
+          <span class="header-pretitle">Selected for You</span>
+          <span class="line"></span>
+        </div>
+        <h2 class="section-title">Sacred <span class="text-accent">Offerings</span></h2>
+        <p class="section-subtitle">Handpicked treasures for your spiritual and wellness journey. Handcrafted with purity, delivered with soul.</p>
+      </div>
       
       <div class="category-chips">
-        <span class="chip active">All Offerings</span>
-        <span class="chip">Traditional Foods</span>
-        <span class="chip">Sacred Herbs</span>
-        <span class="chip">Artisanal Decor</span>
+        <span 
+          *ngFor="let cat of categories" 
+          (click)="selectCategory(cat)"
+          class="chip" 
+          [class.active]="selectedCategory === cat"
+        >
+          {{ cat === 'All' ? 'All Offerings' : cat }}
+        </span>
       </div>
     </div>
 
 
-    <div class="products-grid" *ngIf="products && products.length > 0; else noFeatures">
+    <div class="products-grid" *ngIf="filteredProducts && filteredProducts.length > 0; else noFeatures">
       <app-product-card
-        *ngFor="let p of products"
+        *ngFor="let p of filteredProducts"
         [products]="p">
       </app-product-card>
     </div>

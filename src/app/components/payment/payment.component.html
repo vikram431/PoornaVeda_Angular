@@ -1,53 +1,144 @@
-<div class="card">
-  <h3>Delivery Address</h3>
+<div class="payment-page">
+  <div class="container" *ngIf="!orderComplete; else successState">
+    <div class="payment-grid">
+      <!-- Left: Payment Selection -->
+      <div class="payment-selection">
+        <header class="section-header">
+          <button class="back-btn" routerLink="/checkout">
+            <i class="fa-solid fa-arrow-left"></i>
+          </button>
+          <h1>Payment Method</h1>
+          <p>Choose how you'd like to pay for your order</p>
+        </header>
 
-  <div *ngIf="addresses && addresses.length > 0;">
+        <div class="method-tabs">
+          <div class="method-tab" [class.active]="selectedMethod === 'card'" (click)="setPaymentMethod('card')">
+            <i class="fa-regular fa-credit-card"></i>
+            <span>Card</span>
+          </div>
+          <div class="method-tab" [class.active]="selectedMethod === 'upi'" (click)="setPaymentMethod('upi')">
+            <i class="fa-solid fa-mobile-screen-button"></i>
+            <span>UPI</span>
+          </div>
+          <div class="method-tab" [class.active]="selectedMethod === 'cod'" (click)="setPaymentMethod('cod')">
+            <i class="fa-solid fa-hand-holding-dollar"></i>
+            <span>COD</span>
+          </div>
+        </div>
 
-    <div *ngFor="let addr of addresses" 
-         class="address-box"
-         [class.active]="addr === selectedAddress"
-         (click)="selectAddress(addr)">
+        <div class="method-content">
+          <!-- Card Form -->
+          <div *ngIf="selectedMethod === 'card'" class="card-method-ui animate-fade">
+            <div class="card-visual">
+              <div class="card-chip"></div>
+              <div class="card-number-display">
+                {{ paymentForm.get('cardNumber')?.value || '•••• •••• •••• ••••' }}
+              </div>
+              <div class="card-bottom">
+                <div class="card-holder-display">
+                  <span class="label">CARD HOLDER</span>
+                  <span class="val">{{ paymentForm.get('cardHolder')?.value || 'YOUR NAME' }}</span>
+                </div>
+                <div class="card-expiry-display">
+                  <span class="label">EXPIRES</span>
+                  <span class="val">{{ paymentForm.get('expiry')?.value || 'MM/YY' }}</span>
+                </div>
+              </div>
+              <div class="card-logo">VISA</div>
+            </div>
 
-      <p><strong>{{addr.name}}</strong> ({{addr.mobile}})</p>
-      <p>{{addr.addressLine}}, {{addr.city}} - {{addr.pincode}}</p>
+            <form [formGroup]="paymentForm" class="card-form">
+              <div class="form-group">
+                <label>Card Number</label>
+                <input type="text" formControlName="cardNumber" placeholder="0000 0000 0000 0000">
+              </div>
+              <div class="form-group">
+                <label>Card Holder Name</label>
+                <input type="text" formControlName="cardHolder" placeholder="FULL NAME">
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Expiry Date</label>
+                  <input type="text" formControlName="expiry" placeholder="MM/YY">
+                </div>
+                <div class="form-group">
+                  <label>CVV</label>
+                  <input type="password" formControlName="cvv" placeholder="•••">
+                </div>
+              </div>
+            </form>
+          </div>
 
+          <!-- UPI UI -->
+          <div *ngIf="selectedMethod === 'upi'" class="upi-method-ui animate-fade">
+            <div class="qr-placeholder">
+              <i class="fa-solid fa-qrcode"></i>
+              <p>Scan to pay with any UPI App</p>
+            </div>
+            <form [formGroup]="paymentForm" class="upi-input-group">
+              <label for="upiId">Or enter UPI ID</label>
+              <div class="input-with-btn">
+                <input type="text" id="upiId" formControlName="upiId" placeholder="username@upi"
+                  [class.error]="paymentForm.get('upiId')?.touched && paymentForm.get('upiId')?.invalid">
+                <button class="verify-btn" type="button">Verify</button>
+              </div>
+            </form>
+          </div>
+
+          <!-- COD UI -->
+          <div *ngIf="selectedMethod === 'cod'" class="cod-method-ui animate-fade">
+            <div class="cod-info">
+              <i class="fa-solid fa-truck-ramp-box"></i>
+              <h3>Cash on Delivery</h3>
+              <p>Pay in cash when your order is delivered to your doorstep. An additional handling fee of ₹40 might
+                apply.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="payment-footer">
+          <button class="pay-now-btn" (click)="confirmPayment()" [disabled]="isProcessing">
+            <span *ngIf="!isProcessing">Complete Order • ₹{{ totalAmount }}</span>
+            <span *ngIf="isProcessing" class="loader-inline">
+              <i class="fa-solid fa-circle-notch fa-spin"></i> Processing...
+            </span>
+          </button>
+          <p class="security-note">
+            <i class="fa-solid fa-lock"></i> Your transaction is secured with 256-bit encryption
+          </p>
+        </div>
+      </div>
+
+      <!-- Right: Summary Recap -->
+      <div class="order-recap">
+        <div class="recap-card">
+          <h2>Order Summary</h2>
+          <div class="recap-items">
+            <div class="recap-item" *ngFor="let item of cartItems">
+              <span class="name">{{ item.productName }} x {{ item.quantity }}</span>
+              <span class="price">₹{{ item.price * item.quantity }}</span>
+            </div>
+          </div>
+          <div class="recap-total">
+            <span>Total to pay</span>
+            <span class="total-val">₹{{ totalAmount }}</span>
+          </div>
+        </div>
+      </div>
     </div>
-
-    <!-- Add More Address Button -->
-    <button class="add-btn" (click)="showAddressForm = true">
-      + Add New Address
-    </button>
-
   </div>
 
-  <!-- ❌ No address -->
-  <!-- <ng-template #noAddress>
-    <button class="add-btn" (click)="showAddressForm = true">
-      Add Address
-    </button>
-  </ng-template> -->
-
-  <!-- 🧾 Address Form -->
-<div *ngIf="showAddressForm" class="address-form" [formGroup]="newAddress">
-
-  <div class="row">
-    <input formControlName="name" placeholder="Full Name">
-    <input formControlName="mobile" placeholder="Mobile Number">
-  </div>
-
-  <div class="row">
-    <input formControlName="city" placeholder="City">
-    <input formControlName="pincode" placeholder="Pincode">
-  </div>
-
-  <div class="row">
-    <textarea class="full-width"
-           formControlName="addressLine"
-           placeholder="Address"></textarea>
-  </div>
-
-  <button (click)="addAddress()">Save Address</button>
-
-</div>
-
+  <ng-template #successState>
+    <div class="success-screen">
+      <div class="success-card animate-scale">
+        <div class="success-icon">
+          <i class="fa-solid fa-check"></i>
+        </div>
+        <h1>Order Confirmed!</h1>
+        <p>Thank you for choosing PoornaVeda. Your traditional treasures are being prepared with care.</p>
+        <div class="order-number">Order #{{ orderNumber }}</div>
+        <button class="btn-primary" (click)="returnToShop()">Continue Shopping</button>
+      </div>
+    </div>
+  </ng-template>
 </div>

@@ -3,14 +3,8 @@
     <div class="search-header">
       <div class="search-input-wrapper">
         <i class="fa-solid fa-magnifying-glass"></i>
-        <input 
-          id="search-input"
-          type="text" 
-          [(ngModel)]="searchQuery" 
-          (ngModelChange)="onQueryChange()"
-          placeholder="Search for products, categories..."
-          autocomplete="off"
-        />
+        <input id="search-input" type="text" [(ngModel)]="searchQuery" (ngModelChange)="onQueryChange()"
+          placeholder="Search for products, categories..." autocomplete="off" />
         <button class="clear-btn" *ngIf="searchQuery" (click)="searchQuery = ''; results = []">
           <i class="fa-solid fa-xmark"></i>
         </button>
@@ -28,15 +22,11 @@
 
       <div class="results-list" *ngIf="!loading && results.length > 0">
         <div class="results-header">Products</div>
-        <a 
-          *ngFor="let product of results" 
-          [routerLink]="['/products', product.Id]" 
-          (click)="onResultClick()"
-          class="result-item"
-        >
-          <img [src]="product.imageUrl" [alt]="product.ProductName" class="result-img" />
+        <a *ngFor="let product of results" [routerLink]="['/products', product.id]" (click)="onResultClick()"
+          class="result-item">
+          <img [src]="product.imageUrl" [alt]="product.productName" class="result-img" />
           <div class="result-info">
-            <span class="result-name">{{ product.ProductName }}</span>
+            <span class="result-name">{{ product.productName }}</span>
             <span class="result-category">{{ product.category }}</span>
           </div>
           <span class="result-price">₹{{ product.price }}</span>
@@ -46,8 +36,15 @@
         </div>
       </div>
 
-      <div class="no-results" *ngIf="!loading && results.length === 0 && searchQuery.length >= 2">
+      <div class="no-results" *ngIf="!loading && !serverBusy && results.length === 0 && searchQuery.length >= 2">
         No products found for "{{ searchQuery }}"
+      </div>
+
+      <div class="server-busy-error" *ngIf="!loading && serverBusy">
+        <i class="fa-solid fa-circle-exclamation"></i>
+        <span class="error-title">Server is busy</span>
+        <span class="error-desc">We're having trouble reaching the server right now. Please try again in a few
+          seconds.</span>
       </div>
     </div>
 

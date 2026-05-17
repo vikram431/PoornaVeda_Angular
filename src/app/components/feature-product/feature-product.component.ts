@@ -5,12 +5,12 @@ import { Router } from '@angular/router';
 import { ProductService } from '../products/products.service';
 
 interface Product {
-  Id : string;
-  ProductName: string;
+  id : any;
+  productName: string;
   category: string;
   description: string;
   price: number;
-  image: string;
+  imageUrl: string;
   quantity: number;
 }
 
@@ -23,14 +23,35 @@ interface Product {
 export class FeatureProductComponent {
 
 
-    products:any;
+    allProducts: any[] = [];
+    filteredProducts: any[] = [];
+    categories: string[] = [];
+    selectedCategory: string = 'All';
 
     constructor(private router: Router, private productService: ProductService) {
+      this.productService.getFeatureProducts().subscribe(res => {
+        this.allProducts = res;
+        this.extractCategories();
+        this.applyFilter();
+      });
+    }
 
-      this.productService.getFeatureProducts().subscribe(res=>{
-        this.products=res;
-        console.log(res)
-      })
+    extractCategories() {
+      const cats = this.allProducts.map(p => p.category);
+      this.categories = ['All', ...new Set(cats)];
+    }
+
+    selectCategory(category: string) {
+      this.selectedCategory = category;
+      this.applyFilter();
+    }
+
+    applyFilter() {
+      if (this.selectedCategory === 'All') {
+        this.filteredProducts = this.allProducts;
+      } else {
+        this.filteredProducts = this.allProducts.filter(p => p.category === this.selectedCategory);
+      }
     }
 
 // products: Product[] = [

@@ -20,7 +20,7 @@ interface HeroSlide {
   styleUrls: ['./hero.component.css']
 })
 export class HeroComponent implements OnInit, OnDestroy {
-  
+
   // CONFIGURABLE SLIDES
   slides: HeroSlide[] = [
     {
@@ -31,33 +31,34 @@ export class HeroComponent implements OnInit, OnDestroy {
       image: 'assets/hero-wellness.png',
       ctaText: 'Shop Pure Wellness',
       ctaLink: '/products'
-    },
-    {
-      badge: 'Artisanal Heritage Textiles',
-      title: 'Timeless Beauty.',
-      highlight: 'Woven with Love.',
-      description: 'Discover our collection of handwoven silks and cottons, crafted by master artisans using traditional techniques passed down through generations.',
-      image: 'assets/hero-textiles-new.png',
-
-      ctaText: 'Explore Collection',
-      ctaLink: '/products'
-    },
-    {
-      badge: 'Sacred Rituals & Home',
-      title: 'Purify Your Space.',
-      highlight: 'Calm Your Mind.',
-      description: 'Create a sanctuary at home with our authentic ritual essentials and natural incense, designed to bring peace and sacredness to your daily life.',
-      image: 'assets/hero-rituals.png',
-      ctaText: 'Shop Rituals',
-      ctaLink: '/products'
     }
+    // ,
+    // {
+    //   badge: 'Artisanal Heritage Textiles',
+    //   title: 'Timeless Beauty.',
+    //   highlight: 'Woven with Love.',
+    //   description: 'Discover our collection of handwoven silks and cottons, crafted by master artisans using traditional techniques passed down through generations.',
+    //   image: 'assets/hero-textiles-new.png',
+
+    //   ctaText: 'Explore Collection',
+    //   ctaLink: '/products'
+    // },
+    // {
+    //   badge: 'Sacred Rituals & Home',
+    //   title: 'Purify Your Space.',
+    //   highlight: 'Calm Your Mind.',
+    //   description: 'Create a sanctuary at home with our authentic ritual essentials and natural incense, designed to bring peace and sacredness to your daily life.',
+    //   image: 'assets/hero-rituals.png',
+    //   ctaText: 'Shop Rituals',
+    //   ctaLink: '/products'
+    // }
 
   ];
 
   currentSlideIndex = 0;
   private slideInterval: any;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     this.startAutoSlide();

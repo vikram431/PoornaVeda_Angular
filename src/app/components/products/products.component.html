@@ -1,26 +1,83 @@
-
-<section class="products-section">
-  <div class="container gradient-earth">
+<section class="products-hero">
+  <div class="hero-bg-overlay"></div>
+  <div class="hero-patterns">
+    <div class="pattern circle-1"></div>
+    <div class="pattern circle-2"></div>
+  </div>
+  
+  <div class="container">
     <div class="header">
-      <h2>Our Sacred <span class="text-primary">Offerings</span></h2>
-      <p>Discover products that bring the essence of Indian wisdom to your home</p>
+      <div class="header-pretitle">The PoornaVeda Collection</div>
+      <h1 class="hero-title">Our Sacred <span class="text-accent">Offerings</span></h1>
+      <p class="hero-subtitle">Authentic, artisanal, and pure. Discover the timeless wisdom of India through our carefully curated treasures.</p>
+      
+      <div class="hero-benefits">
+        <span class="benefit"><i class="fa-solid fa-leaf"></i> Nourish</span>
+        <span class="benefit"><i class="fa-solid fa-bolt"></i> Energise</span>
+        <span class="benefit"><i class="fa-solid fa-muscle"></i> Protein Rich</span>
+        <span class="benefit"><i class="fa-solid fa-heart"></i> Healthier Choice</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="products-list-section">
+  <div class="container">
+    <!-- Filter Bar -->
+    <div class="filter-bar floating-filter">
+      <div class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input 
+          type="text" 
+          [(ngModel)]="searchQuery" 
+          (input)="onSearchChange()" 
+          placeholder="Search for products..."
+        />
+      </div>
+
+      <div class="filter-actions">
+        <div class="category-filters">
+          <button 
+            *ngFor="let cat of categories" 
+            [class.active]="selectedCategory === cat"
+            (click)="onCategoryChange(cat)"
+            class="chip"
+          >
+            {{ cat }}
+          </button>
+        </div>
+
+        <div class="sort-box">
+          <span>Sort by:</span>
+          <select [(ngModel)]="sortBy" (change)="onSortChange()">
+            <option value="featured">Featured</option>
+            <option value="priceLow">Price: Low to High</option>
+            <option value="priceHigh">Price: High to Low</option>
+            <option value="name">Name: A-Z</option>
+          </select>
+        </div>
+      </div>
     </div>
 
-    <div class="products-grid" *ngIf="products && products.length > 0; else noProducts">
-      <app-product-card *ngFor="let p of products"
-       [products]="p">
+    <div class="results-info" *ngIf="filteredProducts.length > 0">
+      Showing {{ filteredProducts.length }} products
+    </div>
+
+    <div class="products-grid" *ngIf="filteredProducts && filteredProducts.length > 0; else noProducts">
+      <app-product-card *ngFor="let p of filteredProducts" [products]="p">
       </app-product-card>
     </div>
 
     <ng-template #noProducts>
-      <div class="empty-state">
-        <i class="fa-solid fa-box-open"></i>
-        <h3>No Products Found</h3>
-        <p>We couldn't find any products at the moment. Please check back later or try a different category.</p>
-        <button class="secondary-btn" (click)="refreshProducts()">
-          <i class="fa-solid fa-rotate"></i>
-          Refresh Products
-        </button>
+      <div class="empty-features">
+        <div class="feature-skeleton-grid">
+          <div class="skeleton-card" *ngFor="let i of [1,2,3]">
+            <div class="skeleton-img"></div>
+            <div class="skeleton-text"></div>
+            <div class="skeleton-text short"></div>
+          </div>
+        </div>
+        <p class="no-data-msg">Discovering new treasures for you... Please check back soon!</p>
       </div>
     </ng-template>
 
@@ -52,4 +109,3 @@
     </div> -->
   </div>
 </section>
-

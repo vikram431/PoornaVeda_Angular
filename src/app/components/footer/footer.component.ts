@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Route, Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-footer',
-  imports: [CommonModule],
+  standalone: true,
+  imports: [CommonModule, RouterModule],
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.css']
 })
@@ -20,6 +21,8 @@ export class FooterComponent {
   ];
 
   navigate(path: string) {
-    this.router.navigate([path]);
+    this.router.navigate([path]).then(() => {
+      window.scrollTo(0, 0);
+    });
   }
 }

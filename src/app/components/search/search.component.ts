@@ -17,7 +17,9 @@ export class SearchComponent implements OnInit {
   searchQuery = '';
   results: any[] = [];
   loading = false;
+  serverBusy = false;
   private searchSubject = new Subject<string>();
+  private searchTimeout: any;
 
   constructor(private searchService: SearchService) {}
 
@@ -29,6 +31,8 @@ export class SearchComponent implements OnInit {
         setTimeout(() => {
           document.getElementById('search-input')?.focus();
         }, 300);
+      } else {
+        this.clearTimers();
       }
     });
 
@@ -41,26 +45,66 @@ export class SearchComponent implements OnInit {
   }
 
   onQueryChange() {
+    console.log('Search Component: Query changed to:', this.searchQuery);
     this.searchSubject.next(this.searchQuery);
   }
 
   performSearch(query: string) {
+    console.log('Search Component: Performing search for query:', query);
+    this.clearTimers();
+    this.serverBusy = false;
+
     if (!query || query.length < 2) {
+      console.log('Search Component: Query too short (< 2 chars), clearing results.');
       this.results = [];
       return;
     }
 
     this.loading = true;
-    this.searchService.searchProducts(query).subscribe(results => {
-      this.results = results;
-      this.loading = false;
+
+    // Set 5-second timeout
+    this.searchTimeout = setTimeout(() => {
+      if (this.loading) {
+        console.warn('Search Component: Request timed out after 5 seconds.');
+        this.loading = false;
+        this.serverBusy = true;
+        this.results = [];
+      }
+    }, 5000);
+
+    console.log('Search Component: Calling SearchService...');
+    this.searchService.searchProducts(query).subscribe({
+      next: (results) => {
+        console.log('Search Component: SearchService returned results:', results);
+        this.clearTimers();
+        if (!this.serverBusy) {
+          this.results = results;
+          this.loading = false;
+        }
+      },
+      error: (err) => {
+        console.error('Search Component: SearchService error:', err);
+        this.clearTimers();
+        this.loading = false;
+        this.results = [];
+        this.serverBusy = true;
+      }
     });
+  }
+
+  private clearTimers() {
+    if (this.searchTimeout) {
+      clearTimeout(this.searchTimeout);
+      this.searchTimeout = null;
+    }
   }
 
   close() {
     this.searchService.close();
     this.searchQuery = '';
     this.results = [];
+    this.serverBusy = false;
+    this.clearTimers();
   }
 
   onResultClick() {

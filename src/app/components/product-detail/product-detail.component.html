@@ -3,16 +3,15 @@
     <nav class="breadcrumb">
       <a routerLink="/products">Products</a>
       <span class="separator">/</span>
-      <span class="current">{{ product.ProductName }}</span>
+      <span class="current">{{ product.productName }}</span>
     </nav>
 
     <div class="pdp-grid">
       <!-- Product Images -->
       <div class="product-gallery">
         <div class="main-image-wrapper">
-          <img [src]="product.imageUrl" [alt]="product.ProductName" class="main-image" />
+          <img [src]="product.imageUrl" [alt]="product.productName" class="main-image" />
         </div>
-        <!-- Thumbnails could go here if there were multiple images -->
       </div>
 
       <!-- Product Info -->
@@ -25,20 +24,21 @@
             <i class="fa-solid fa-star"></i>
             <i class="fa-solid fa-star"></i>
             <i class="fa-solid fa-star-half-stroke"></i>
-            <span class="review-count">(24 reviews)</span>
+            <span class="review-count">({{ mockReviews.length }} reviews)</span>
           </div>
         </div>
 
-        <h1 class="product-title">{{ product.ProductName }}</h1>
-        
+        <h1 class="product-title">{{ product.productName }}</h1>
+        <p class="product-subtitle">{{ product.subHeading }}</p>
+
         <div class="price-box">
-          <span class="current-price">₹{{ product.price }}</span>
+          <div class="price-row">
+            <span class="current-price">₹{{ product.price }}</span>
+            <span class="original-price" *ngIf="product.price">₹{{ product.price * 1.2 | number:'1.0-0' }}</span>
+            <span class="discount-tag" *ngIf="product.price">20% OFF</span>
+          </div>
           <span class="tax-info">Inclusive of all taxes</span>
         </div>
-
-        <p class="product-description">
-          {{ product.description }}
-        </p>
 
         <div class="purchase-actions">
           <div class="quantity-selector">
@@ -49,7 +49,7 @@
 
           <button class="add-to-cart-btn" (click)="addToCart()">
             <i class="fa-solid fa-shopping-bag"></i>
-            Add to Cart
+            {{ inCart ? 'View in Cart' : 'Add to Cart' }}
           </button>
         </div>
 
@@ -76,6 +76,98 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- Tabs Section -->
+    <div class="pdp-tabs-section">
+      <div class="tabs-header">
+        <button [class.active]="activeTab === 'description'" (click)="setActiveTab('description')">Description</button>
+        <button [class.active]="activeTab === 'reviews'" (click)="setActiveTab('reviews')">Reviews ({{
+          mockReviews.length }})</button>
+        <button [class.active]="activeTab === 'shipping'" (click)="setActiveTab('shipping')">Shipping info</button>
+      </div>
+
+      <div class="tab-content" [ngSwitch]="activeTab">
+        <!-- Description Tab -->
+        <div *ngSwitchCase="'description'" class="description-content animate-fade">
+          <h3>Product Details</h3>
+          <p [innerHTML]="product.description"></p>
+
+          <div class="details-list">
+            <div class="detail-row">
+              <span class="label">Category</span>
+              <span class="value">{{ product.category }}</span>
+            </div>
+            <div class="detail-row">
+              <span class="label">Availability</span>
+              <span class="value in-stock">In Stock</span>
+            </div>
+            <div class="detail-row">
+              <span class="label">Collection</span>
+              <span class="value">Vedic Essentials</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reviews Tab -->
+        <div *ngSwitchCase="'reviews'" class="reviews-content animate-fade">
+          <div class="reviews-summary">
+            <div class="avg-rating">
+              <span class="score">4.8</span>
+              <div class="stars">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+              </div>
+              <span class="count">Based on {{ mockReviews.length }} reviews</span>
+            </div>
+            <button class="primary-btn sm">Write a Review</button>
+          </div>
+
+          <div class="reviews-list">
+            <div class="review-item" *ngFor="let review of mockReviews">
+              <div class="review-header">
+                <div class="user-info">
+                  <div class="avatar">{{ review.user.charAt(0) }}</div>
+                  <div>
+                    <span class="username">{{ review.user }}</span>
+                    <span class="date">{{ review.date }}</span>
+                  </div>
+                </div>
+                <div class="stars">
+                  <i class="fa-solid fa-star" *ngFor="let s of [1,2,3,4,5]"></i>
+                </div>
+              </div>
+              <p class="comment">{{ review.comment }}</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Shipping Tab -->
+        <div *ngSwitchCase="'shipping'" class="shipping-content animate-fade">
+          <h3>Shipping Information</h3>
+          <ul>
+            <li>Standard Delivery: 3-5 business days</li>
+            <li>Free shipping on orders over ₹999</li>
+            <li>Cash on Delivery available in selected locations</li>
+            <li>Tracking ID provided via Email/SMS</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Similar Products Section -->
+    <div class="similar-products-section" *ngIf="similarProducts.length > 0">
+      <div class="section-header">
+        <h2>You May Also <span class="text-primary">Like</span></h2>
+        <p>Handpicked selections based on your current choice</p>
+      </div>
+
+      <div class="similar-grid">
+        <app-product-card *ngFor="let prod of similarProducts" [products]="prod"></app-product-card>
       </div>
     </div>
   </div>

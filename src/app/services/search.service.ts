@@ -20,21 +20,12 @@ export class SearchService {
   }
 
   searchProducts(query: string): Observable<any[]> {
-    // In a real app, this would be an API call
-    // For now, we'll fetch all and filter client-side
-    return new Observable(observer => {
-      if (!query || query.length < 2) {
-        observer.next([]);
-        return;
-      }
-
-      this.productService.getAllProducts().subscribe(products => {
-        const results = products.filter((p: any) => 
-          p.ProductName.toLowerCase().includes(query.toLowerCase()) ||
-          p.category.toLowerCase().includes(query.toLowerCase())
-        );
-        observer.next(results.slice(0, 5)); // Limit to 5 results
-      });
-    });
+    console.log('Search Service: Received query:', query);
+    if (!query || query.length < 2) {
+      console.log('Search Service: Query empty or < 2 chars, aborting service call.');
+      return new Observable(observer => observer.next([]));
+    }
+    console.log('Search Service: Invoking ProductService search...');
+    return this.productService.searchProducts(query, 5);
   }
 }

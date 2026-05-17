@@ -1,6 +1,6 @@
 <div class="product-card">
   <div class="product-image-container" (click)="onProductClick()">
-    <img [src]="products.imageUrl" [alt]="products.ProductName" class="product-image" />
+    <img [src]="products.imageUrl" [alt]="products.productName" class="product-image" />
     <div class="product-overlay">
       <button class="quick-view-btn" (click)="$event.stopPropagation(); onProductClick()">
         Quick View
@@ -10,14 +10,29 @@
 
   <div class="product-info">
     <div class="product-category">{{ products.category }}</div>
-    <h3 class="product-name" (click)="onProductClick()">{{ products.ProductName }}</h3>
+    <h3 class="product-name" (click)="onProductClick()">{{ products.productName }}</h3>
     
     <div class="product-footer">
-      <div class="product-price">₹{{ products.price }}</div>
-      <button class="add-to-cart-btn" (click)="addToCart()" [class.in-cart]="inCart">
-        <i class="fa-solid" [ngClass]="inCart ? 'fa-check' : 'fa-plus'"></i>
-        {{ inCart ? 'Added' : 'Add' }}
-      </button>
+      <div class="footer-top">
+        <div class="product-price">₹{{ products.price }}</div>
+      </div>
+      
+      <div class="cart-actions-wrapper">
+        <div class="quantity-controls">
+          <button class="qty-btn" (click)="decrementQuantity($event)" title="Decrease quantity">
+            <i class="fa-solid fa-minus"></i>
+          </button>
+          <span class="qty-val">{{ quantity }}</span>
+          <button class="qty-btn" (click)="incrementQuantity($event)" title="Increase quantity">
+            <i class="fa-solid fa-plus"></i>
+          </button>
+        </div>
+
+        <button class="add-to-cart-btn" (click)="addToCart()" [class.in-cart]="inCart">
+          <i class="fa-solid" [ngClass]="inCart ? 'fa-check' : 'fa-cart-plus'"></i>
+          {{ inCart ? 'Added' : 'Add' }}
+        </button>
+      </div>
     </div>
   </div>
 </div>

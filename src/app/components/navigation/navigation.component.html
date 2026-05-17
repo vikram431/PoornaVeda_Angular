@@ -1,4 +1,4 @@
-<nav class="nav-container glass">
+<nav class="nav-container" [class.scrolled]="isScrolled">
   <div class="nav-inner container">
     <!-- Left: Mobile Menu Trigger -->
     <button class="mobile-menu-btn md:hidden" (click)="toggleMenu()" aria-label="Toggle menu">
@@ -43,18 +43,19 @@
     </ng-template>
   </div>
 
-  <!-- Mobile Menu Overlay -->
-  <div *ngIf="mobileMenuOpen" class="mobile-menu-overlay" (click)="toggleMenu()"></div>
-  <div class="mobile-menu-drawer" [class.open]="mobileMenuOpen">
-    <div class="mobile-menu-header">
-      <img src="/logo-full.png" alt="PoornaVeda" class="h-8" />
-      <button (click)="toggleMenu()"><i class="fa-solid fa-xmark"></i></button>
-    </div>
-    <div class="mobile-menu-links">
-      <a (click)="navigate('/')" class="mobile-link">Home</a>
-      <a (click)="navigate('/products')" class="mobile-link">Products</a>
-      <a (click)="navigate('/about')" class="mobile-link">Our Story</a>
-      <a (click)="navigate('/contact')" class="mobile-link">Contact</a>
-    </div>
+</nav>
+
+<!-- Mobile Menu Overlay - Moved outside for better stacking -->
+<div *ngIf="mobileMenuOpen" class="mobile-menu-overlay" (click)="toggleMenu()"></div>
+<div class="mobile-menu-drawer" [class.open]="mobileMenuOpen">
+  <div class="mobile-menu-header">
+    <img src="/logo-full.png" alt="PoornaVeda" />
+    <button (click)="toggleMenu()" aria-label="Close menu"><i class="fa-solid fa-xmark"></i></button>
   </div>
-</nav>
+  <div class="mobile-menu-links">
+    <a (click)="navigate('/')" class="mobile-link">Home</a>
+    <a (click)="navigate('/products')" class="mobile-link">Products</a>
+    <a (click)="navigate('/about')" class="mobile-link">Our Story</a>
+    <a (click)="navigate('/contact')" class="mobile-link">Contact</a>
+  </div>
+</div>

@@ -8,12 +8,13 @@
   --text-muted: #666666;
   --border-light: #e5e5e5;
   --glass-bg: rgba(255, 255, 255, 0.8);
-  --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -21,6 +22,8 @@ html, body {
   background-color: var(--bg-cream);
   color: var(--text-deep);
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 * {
@@ -98,10 +101,18 @@ input:focus {
   display: none !important;
 }
 
+.auth-layout {
+  height: 100vh;
+  height: 100dvh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
 @media (min-width: 769px) {
   .md\:hidden {
     display: none !important;
   }
+
   .md\:flex {
     display: flex !important;
   }
@@ -112,5 +123,3 @@ input:focus {
     display: none !important;
   }
 }
-
-

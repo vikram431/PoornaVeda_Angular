@@ -3,33 +3,58 @@
   background-color: white;
 }
 
+.section-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.header-content {
+  margin-bottom: 3.5rem;
+}
+
+.pretitle-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.pretitle-wrapper .line {
+  height: 1px;
+  width: 40px;
+  background-color: var(--primary-green);
+  opacity: 0.3;
+}
+
 .header-pretitle {
   color: var(--primary-green);
   text-transform: uppercase;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.25em;
   font-weight: 700;
-  font-size: 0.8125rem;
-  margin-bottom: 0.75rem;
+  font-size: 0.75rem;
 }
 
 .section-title {
-  font-size: clamp(2rem, 4vw, 3.5rem);
+  font-size: clamp(2.5rem, 5vw, 4rem);
   font-weight: 800;
   color: var(--text-deep);
   margin-bottom: 1.5rem;
+  line-height: 1.1;
   font-family: 'Outfit', sans-serif;
 }
 
 .text-accent {
   color: var(--primary-green);
+  position: relative;
 }
 
 .section-subtitle {
   font-size: 1.125rem;
   color: var(--text-muted);
-  max-width: 700px;
-  margin: 0 auto 3rem;
-  line-height: 1.6;
+  max-width: 650px;
+  margin: 0 auto;
+  line-height: 1.7;
 }
 
 .category-chips {

@@ -1,0 +1,248 @@
+<div class="checkout-page">
+  <div class="checkout-container">
+    <!-- Left Column: Forms -->
+    <div class="form-column">
+      <nav class="checkout-breadcrumb">
+        <a routerLink="/cart">Cart</a>
+        <i class="fa-solid fa-chevron-right"></i>
+        <span class="active">Information</span>
+        <i class="fa-solid fa-chevron-right"></i>
+        <span>Shipping</span>
+        <i class="fa-solid fa-chevron-right"></i>
+        <span>Payment</span>
+      </nav>
+
+      <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+        <!-- Contact Section -->
+        <section class="form-section">
+          <div class="section-header">
+            <h2>Contact Information</h2>
+            <p *ngIf="!isLoggedIn">Already have an account? <a routerLink="/auth">Log in</a></p>
+          </div>
+          <div class="form-group">
+            <input type="email" id="email" formControlName="email" placeholder="Email address"
+              [class.error]="checkoutForm.get('email')?.touched && checkoutForm.get('email')?.invalid">
+            <label for="email">Email address</label>
+          </div>
+        </section>
+
+        <!-- Shipping Section -->
+        <section class="form-section">
+          <h2>Shipping Address</h2>
+
+          <!-- Shipping Address Dropdown Selection (Shown if user is logged in) -->
+          <div class="shipping-select-wrapper" *ngIf="isLoggedIn">
+            <label for="shippingAddressSelect"><i class="fa-solid fa-map-location-dot"></i> Ship to:</label>
+            <select id="shippingAddressSelect" (change)="onShippingAddressChange($event)" class="address-select-dropdown">
+              <option *ngFor="let addr of savedAddresses" [value]="addr.id" [selected]="selectedAddress?.id === addr.id">
+                {{ addr.name }} — {{ addr.street }} ({{ addr.city }})
+              </option>
+              <option value="new" [selected]="selectedAddress === null">
+                + Add New Address
+              </option>
+            </select>
+          </div>
+
+          <!-- Saved Address Summary Card -->
+          <div class="default-address-container" *ngIf="selectedAddress">
+            <div class="default-address-card">
+              <div class="addr-header">
+                <span class="title-label"><i class="fa-solid fa-truck-fast"></i> Shipping Details</span>
+                <a routerLink="/address" class="change-link"><i class="fa-solid fa-pen-to-square"></i> Manage Addresses</a>
+              </div>
+              <div class="addr-content">
+                <p class="name">{{ selectedAddress.name }}</p>
+                <p class="street">{{ selectedAddress.street }}</p>
+                <p class="city-state">{{ selectedAddress.city }}, {{ selectedAddress.state }} - {{ selectedAddress.zipCode }}</p>
+                <p class="phone"><i class="fa-solid fa-phone"></i> Phone: {{ selectedAddress.phone }}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Manual Address Form (Shown only when NO selectedAddress exists) -->
+          <div class="manual-address-form" *ngIf="!selectedAddress">
+            <div class="form-row">
+              <div class="form-group half">
+                <input type="text" id="firstName" formControlName="firstName" placeholder="First name"
+                  [class.error]="checkoutForm.get('firstName')?.touched && checkoutForm.get('firstName')?.invalid">
+                <label for="firstName">First name</label>
+              </div>
+              <div class="form-group half">
+                <input type="text" id="lastName" formControlName="lastName" placeholder="Last name"
+                  [class.error]="checkoutForm.get('lastName')?.touched && checkoutForm.get('lastName')?.invalid">
+                <label for="lastName">Last name</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <input type="text" id="address" formControlName="address" placeholder="Address"
+                [class.error]="checkoutForm.get('address')?.touched && checkoutForm.get('address')?.invalid">
+              <label for="address">Address</label>
+            </div>
+            <div class="form-group">
+              <input type="text" id="apartment" formControlName="apartment"
+                placeholder="Apartment, suite, etc. (optional)">
+              <label for="apartment">Apartment, suite, etc. (optional)</label>
+            </div>
+            <div class="form-row">
+              <div class="form-group third">
+                <input type="text" id="city" formControlName="city" placeholder="City"
+                  [class.error]="checkoutForm.get('city')?.touched && checkoutForm.get('city')?.invalid">
+                <label for="city">City</label>
+              </div>
+              <div class="form-group third">
+                <input type="text" id="state" formControlName="state" placeholder="State"
+                  [class.error]="checkoutForm.get('state')?.touched && checkoutForm.get('state')?.invalid">
+                <label for="state">State</label>
+              </div>
+              <div class="form-group third">
+                <input type="text" id="zipCode" formControlName="zipCode" placeholder="ZIP code"
+                  [class.error]="checkoutForm.get('zipCode')?.touched && checkoutForm.get('zipCode')?.invalid">
+                <label for="zipCode">ZIP code</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <input type="tel" id="phone" formControlName="phone" placeholder="Phone"
+                [class.error]="checkoutForm.get('phone')?.touched && checkoutForm.get('phone')?.invalid">
+              <label for="phone">Phone</label>
+            </div>
+          </div>
+        </section>
+
+        <!-- Billing Address Section -->
+        <section class="form-section billing-section">
+          <h2>Billing Address</h2>
+          <div class="billing-options-card">
+            <!-- Option 1: Same as shipping -->
+            <label class="billing-option-label" [class.active]="checkoutForm.get('billingSameAsShipping')?.value === true">
+              <input type="radio" name="billingSameAsShippingRadio" [value]="true"
+                [checked]="checkoutForm.get('billingSameAsShipping')?.value === true"
+                (change)="onBillingSameChange(true)">
+              <div class="option-details">
+                <span class="option-title">Same as shipping address</span>
+              </div>
+            </label>
+
+            <!-- Option 2: Use different billing -->
+            <label class="billing-option-label" [class.active]="checkoutForm.get('billingSameAsShipping')?.value === false">
+              <input type="radio" name="billingSameAsShippingRadio" [value]="false"
+                [checked]="checkoutForm.get('billingSameAsShipping')?.value === false"
+                (change)="onBillingSameChange(false)">
+              <div class="option-details">
+                <span class="option-title">Use a different billing address</span>
+              </div>
+            </label>
+          </div>
+
+          <!-- Conditional Different Billing Address Form -->
+          <div class="manual-address-form billing-manual-form" *ngIf="checkoutForm.get('billingSameAsShipping')?.value === false">
+            <div class="form-row">
+              <div class="form-group half">
+                <input type="text" id="billingFirstName" formControlName="billingFirstName" placeholder="First name"
+                  [class.error]="checkoutForm.get('billingFirstName')?.touched && checkoutForm.get('billingFirstName')?.invalid">
+                <label for="billingFirstName">First name</label>
+              </div>
+              <div class="form-group half">
+                <input type="text" id="billingLastName" formControlName="billingLastName" placeholder="Last name"
+                  [class.error]="checkoutForm.get('billingLastName')?.touched && checkoutForm.get('billingLastName')?.invalid">
+                <label for="billingLastName">Last name</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <input type="text" id="billingAddress" formControlName="billingAddress" placeholder="Address"
+                [class.error]="checkoutForm.get('billingAddress')?.touched && checkoutForm.get('billingAddress')?.invalid">
+              <label for="billingAddress">Address</label>
+            </div>
+            <div class="form-group">
+              <input type="text" id="billingApartment" formControlName="billingApartment"
+                placeholder="Apartment, suite, etc. (optional)">
+              <label for="billingApartment">Apartment, suite, etc. (optional)</label>
+            </div>
+            <div class="form-row">
+              <div class="form-group third">
+                <input type="text" id="billingCity" formControlName="billingCity" placeholder="City"
+                  [class.error]="checkoutForm.get('billingCity')?.touched && checkoutForm.get('billingCity')?.invalid">
+                <label for="billingCity">City</label>
+              </div>
+              <div class="form-group third">
+                <input type="text" id="billingState" formControlName="billingState" placeholder="State"
+                  [class.error]="checkoutForm.get('billingState')?.touched && checkoutForm.get('billingState')?.invalid">
+                <label for="billingState">State</label>
+              </div>
+              <div class="form-group third">
+                <input type="text" id="billingZipCode" formControlName="billingZipCode" placeholder="ZIP code"
+                  [class.error]="checkoutForm.get('billingZipCode')?.touched && checkoutForm.get('billingZipCode')?.invalid">
+                <label for="billingZipCode">ZIP code</label>
+              </div>
+            </div>
+            <div class="form-group">
+              <input type="tel" id="billingPhone" formControlName="billingPhone" placeholder="Phone"
+                [class.error]="checkoutForm.get('billingPhone')?.touched && checkoutForm.get('billingPhone')?.invalid">
+              <label for="billingPhone">Phone</label>
+            </div>
+          </div>
+        </section>
+
+        <!-- Action Buttons -->
+        <div class="form-footer">
+          <a routerLink="/" class="back-link">
+            <i class="fa-solid fa-chevron-left"></i> Return to Store
+          </a>
+          <button type="submit" class="continue-btn btn-primary">
+            Continue to Payment
+          </button>
+        </div>
+      </form>
+
+      <footer class="checkout-footer">
+        <div class="footer-links">
+          <a [routerLink]="['/refund-policy']" [queryParams]="{ from: 'checkout' }">Refund policy</a>
+          <a [routerLink]="['/shipping-delivery']" [queryParams]="{ from: 'checkout' }">Shipping policy</a>
+          <a [routerLink]="['/privacy-policy']" [queryParams]="{ from: 'checkout' }">Privacy policy</a>
+          <a [routerLink]="['/terms-of-service']" [queryParams]="{ from: 'checkout' }">Terms of service</a>
+        </div>
+      </footer>
+    </div>
+
+    <!-- Right Column: Order Summary -->
+    <div class="summary-column">
+      <div class="summary-content">
+        <div class="order-items">
+          <div class="item-row" *ngFor="let item of cartItems">
+            <div class="item-img-wrapper">
+              <img [src]="item.imageUrl" [alt]="item.productName">
+              <span class="item-badge">{{ item.quantity }}</span>
+            </div>
+            <div class="item-info">
+              <span class="item-name">{{ item.productName }}</span>
+              <span class="item-category">{{ item.category }}</span>
+            </div>
+            <div class="item-price">₹{{ item.price * item.quantity }}</div>
+          </div>
+        </div>
+
+        <div class="discount-code-wrapper">
+          <input type="text" placeholder="Discount code">
+          <button class="apply-btn" type="button">Apply</button>
+        </div>
+
+        <div class="price-breakdown">
+          <div class="price-row">
+            <span>Subtotal</span>
+            <span>₹{{ subtotal }}</span>
+          </div>
+          <div class="price-row">
+            <span>Shipping</span>
+            <span>{{ shipping === 0 ? 'Free' : '₹' + shipping }}</span>
+          </div>
+          <div class="price-row total">
+            <span>Total</span>
+            <div class="total-price">
+              <span class="currency">INR</span>
+              <span class="amount">₹{{ total }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

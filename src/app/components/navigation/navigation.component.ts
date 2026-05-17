@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { cartService } from '../cart-sheet/cart-sheet.service';
@@ -7,18 +7,24 @@ import { ProfileService } from '../profile/profile.service';
 import { SearchService } from '../../services/search.service';
 import { filter } from 'rxjs';
 
-
 @Component({
   selector: 'app-navigation',
-  imports:[CommonModule],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.css']
 })
 export class NavigationComponent implements OnInit {
   cartItemsCount:number = 0;
   activeRoute = '';
+  isScrolled = false;
 
-  isLoggedIn = false; // replace with backend auth check later
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    this.isScrolled = window.scrollY > 20;
+  }
+
+  isLoggedIn = false;
   mobileMenuOpen = false;
 
   constructor(
@@ -39,9 +45,10 @@ export class NavigationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-     this.cartService.cartCount$.subscribe(count=>{
-      this.cartItemsCount=count;
-    })
+     this.cartService.cartCount$.subscribe(count => {
+      console.log('Nav received cart count:', count);
+      this.cartItemsCount = count;
+    });
 
       this.activeRoute = this.router.url;
 

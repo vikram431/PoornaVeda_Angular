@@ -1,24 +1,54 @@
 <div class="cart-overlay" *ngIf="isOpen" (click)="closeSheet()"></div>
 
 <div class="cart-sheet" [class.open]="isOpen">
+  <!-- Top Promo Bar -->
+  <div class="promo-bar">
+    Use code "TASTY" for 7% off first purchase
+  </div>
+
   <div class="cart-header">
     <div class="header-top">
-      <h2>Your Cart</h2>
+      <h2>YOUR CART <span>({{ cartItems.length }})</span></h2>
       <button class="close-btn" (click)="closeSheet()" aria-label="Close cart">
         <i class="fa-solid fa-xmark"></i>
       </button>
     </div>
-    <div class="cart-count-badge" *ngIf="cartItems.length > 0">
-      {{ cartItems.length }} {{ cartItems.length === 1 ? 'Item' : 'Items' }}
+  </div>
+
+  <!-- Progress Bar Section -->
+  <div class="progress-section" *ngIf="cartItems.length > 0">
+    <p class="progress-msg">Get 10% off by adding items worth <strong>₹440</strong></p>
+    <div class="milestones">
+      <div class="milestone-item achieved">
+        <div class="amount">₹599</div>
+        <div class="icon-circle"><i class="fa-solid fa-check"></i></div>
+        <div class="label">Free Shipping</div>
+      </div>
+      <div class="milestone-item achieved">
+        <div class="amount">₹999</div>
+        <div class="icon-circle"><i class="fa-solid fa-check"></i></div>
+        <div class="label">Free Gift</div>
+      </div>
+      <div class="milestone-item next">
+        <div class="amount">₹1499</div>
+        <div class="icon-circle"><i class="fa-solid fa-percent"></i></div>
+        <div class="label">10% OFF</div>
+      </div>
+      <div class="milestone-item">
+        <div class="amount">₹2499</div>
+        <div class="icon-circle"><i class="fa-solid fa-percent"></i></div>
+        <div class="label">12% Off</div>
+      </div>
+      <div class="progress-line">
+        <div class="progress-fill" style="width: 50%;"></div>
+      </div>
     </div>
   </div>
 
   <div class="cart-body">
     <!-- Empty State -->
     <div *ngIf="cartItems.length === 0" class="empty-cart">
-      <div class="empty-icon">
-        <i class="fa-solid fa-cart-shopping"></i>
-      </div>
+      <div class="empty-icon"><i class="fa-solid fa-cart-shopping"></i></div>
       <p>Your cart is empty</p>
       <button class="primary-btn" (click)="closeSheet()">Continue Shopping</button>
     </div>
@@ -27,30 +57,44 @@
     <div class="cart-items" *ngIf="cartItems.length > 0">
       <div class="cart-item" *ngFor="let item of cartItems">
         <div class="item-image">
-          <img [src]="item.imageUrl" [alt]="item.ProductName" />
+          <img [src]="item.imageUrl" [alt]="item.productName" />
         </div>
-        <div class="item-details">
-          <div class="item-title-row">
-            <h3 class="item-name">{{ item.ProductName }}</h3>
-            <button class="remove-item-btn" (click)="removeItem(item.cartItemId)" title="Remove item">
+        <div class="item-info">
+          <div class="item-header">
+            <h3 class="item-name">{{ item.productName }}</h3>
+            <div class="item-prices">
+              <span class="current-price">₹{{ item.price }}</span>
+              <span class="old-price" *ngIf="item.oldPrice">₹{{ item.oldPrice }}</span>
+            </div>
+          </div>
+          <div class="item-actions">
+            <button class="remove-btn" (click)="removeItem(item.cartItemId)">
               <i class="fa-regular fa-trash-can"></i>
             </button>
-          </div>
-          <p class="item-category">{{ item.category }}</p>
-          <div class="item-price-qty">
             <div class="qty-control">
-              <button (click)="updateQuantity(item.Id, item.quantity - 1)" [disabled]="item.quantity <= 1">
-                <i class="fa-solid fa-minus"></i>
-              </button>
+              <button (click)="updateQuantity(item.id, item.quantity - 1)" [disabled]="item.quantity <= 1">−</button>
               <span class="qty-value">{{ item.quantity }}</span>
-              <button (click)="updateQuantity(item.Id, item.quantity + 1)">
-                <i class="fa-solid fa-plus"></i>
-              </button>
+              <button (click)="updateQuantity(item.id, item.quantity + 1)">+</button>
             </div>
-            <div class="item-price">₹{{ item.price * item.quantity }}</div>
           </div>
-          <div class="out-of-stock-warning" *ngIf="item.itemOutStock">
-            <i class="fa-solid fa-circle-exclamation"></i> Out of stock
+        </div>
+      </div>
+
+      <!-- Mystery Gift -->
+      <div class="cart-item gift-item">
+        <div class="item-image gift-img">
+          <img src="assets/philosophy-story.png" alt="Mystery Gift" />
+          <div class="gift-badge"><i class="fa-solid fa-gift"></i></div>
+        </div>
+        <div class="item-info">
+          <div class="item-header">
+            <h3 class="item-name">Mystery Gift</h3>
+            <span class="free-text">FREE!</span>
+          </div>
+          <div class="qty-control gift-qty">
+            <button disabled>−</button>
+            <span class="qty-value">1</span>
+            <button disabled>+</button>
           </div>
         </div>
       </div>
@@ -58,15 +102,43 @@
   </div>
 
   <div class="cart-footer" *ngIf="cartItems.length > 0">
-    <div class="summary-row">
-      <span>Subtotal</span>
-      <span class="subtotal-amount">₹{{ total }}</span>
+    <!-- Coupon Section -->
+    <div class="coupon-section">
+      <div class="coupon-input-wrapper">
+        <i class="fa-solid fa-tag"></i>
+        <input type="text" placeholder="Enter coupon code" />
+      </div>
+      <div class="savings-alert">
+        <span class="savings-icon">💰</span>
+        <span class="savings-text"><strong>FREE!</strong> Saved with discounts!</span>
+        <i class="fa-solid fa-chevron-down"></i>
+      </div>
     </div>
-    <p class="shipping-note">Taxes and shipping calculated at checkout</p>
-    <button class="checkout-btn primary-btn" (click)="onClickProceed()">
-      Checkout Now
-      <i class="fa-solid fa-arrow-right"></i>
+
+    <!-- Total Section -->
+    <div class="total-section">
+      <div class="total-row">
+        <div class="total-label">
+          <i class="fa-solid fa-calculator"></i>
+          Estimated total
+        </div>
+        <div class="total-value">
+          <div class="amount">₹{{ total }}</div>
+          <div class="savings">You saved ₹78!</div>
+        </div>
+        <i class="fa-solid fa-chevron-up"></i>
+      </div>
+    </div>
+
+    <!-- Checkout Button -->
+    <button class="checkout-btn" (click)="onClickProceed()">
+      <div class="checkout-text">Checkout</div>
+      <div class="payment-icons">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/e/e1/UPI-Logo-vector.svg" alt="UPI">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/2/24/Paytm_Logo_%28standalone%29.svg" alt="Paytm">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/7/71/Arrow_East.svg" alt="PhonePe"
+          style="filter: hue-rotate(240deg);">
+      </div>
     </button>
   </div>
 </div>
-
